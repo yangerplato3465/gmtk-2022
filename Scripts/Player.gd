@@ -2,8 +2,10 @@ extends KinematicBody2D
 
 var tileSize = 16
 var turn = false
+var canMove = true
 var moveSpeed = 2
 var sizeIncrease = 0.035
+var health = 10
 
 var left = 0
 var right = 0
@@ -45,7 +47,7 @@ func movement():
 		down -= moveSpeed
 
 func moveInput():
-	if turn == false:
+	if turn == false && canMove:
 		if Input.is_action_pressed("move_up") && $Up.is_colliding() == false:
 			SignalManager.emit_signal("move")
 			up = tileSize
@@ -72,4 +74,5 @@ func popAnim(direction):
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Enemy":
-		SignalManager.emit_signal("battle")
+		SignalManager.emit_signal("battle", health, diceOptions)
+		canMove = false
