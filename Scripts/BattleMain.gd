@@ -18,7 +18,7 @@ func _ready():
 	m_enemyNodeList.append($Enemy/EnemyNode_3)
 	self.visible = false
 	TestData()
-	Show()
+#	Show()
 	pass # Replace with function body.
 
 func TestData():

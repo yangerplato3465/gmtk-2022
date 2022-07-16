@@ -4,7 +4,7 @@
 [ext_resource path="res://Prefab/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/tilemap_packed.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/GameManager.gd" type="Script" id=4]
-[ext_resource path="res://Scene/BattleScene.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scene/DwolfWorld.tscn" type="PackedScene" id=5]
 
 [sub_resource type="OccluderPolygon2D" id=13]
 polygon = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )

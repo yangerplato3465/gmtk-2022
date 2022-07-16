@@ -74,5 +74,9 @@ func popAnim(direction):
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Enemy":
-		SignalManager.emit_signal("battle", health, diceOptions)
+		var playerInfo = {
+			"hp": health,
+			"diceList": diceOptions
+		}
+		SignalManager.emit_signal("battlePlayerInfo", playerInfo)
 		canMove = false

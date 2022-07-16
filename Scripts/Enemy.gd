@@ -1,16 +1,20 @@
 extends KinematicBody2D
 
 export(String, "cactus", "crab") var enemyType = "cactus"
+export(int, 1, 2, 3) var numberOfEnemy = 1
 
 var tileSize = 16
 var turn = false
 var moveSpeed = 2
 var sizeIncrease = 0.035
+var health = 5
 
 var left = 0
 var right = 0
 var up = 0
 var down = 0
+
+var diceOptions = ['attack_1', 'attack_1', 'attack_1', 'attack_2', 'attack_aoe', 'armor_1', 'potion_1']
 
 func _ready():
 	if enemyType == "cactus":
@@ -71,3 +75,13 @@ func popAnim(direction):
 		$Sprite.scale += Vector2(sizeIncrease, sizeIncrease)
 	else:
 		$Sprite.scale -= Vector2(sizeIncrease, sizeIncrease)
+
+
+func _on_Area2D_body_entered(body):
+	if body.name == "Player":
+		var enemyInfo = {
+			"hp": health,
+			"diceList": diceOptions,
+			"num": numberOfEnemy
+		}
+		SignalManager.emit_signal("battleEnemyInfo", enemyInfo)
