@@ -14,6 +14,10 @@ config/name="gmtk2022"
 run/main_scene="res://Scene/World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+SignalManager="*res://SignalManager.gd"
+
 [input]
 
 ui_end={

@@ -10,6 +10,8 @@ var right = 0
 var up = 0
 var down = 0
 
+var diceOptions = ['attack_1', 'attack_1', 'attack_1', 'attack_2', 'attack_aoe', 'armor_1', 'potion_1']
+
 func _physics_process(delta):
 	movement();
 
@@ -21,7 +23,7 @@ func isNoInput():
 
 func movement():
 	moveInput()
-	
+
 	if turn && isNoInput() && isNotMoving():
 		turn = false
 	
@@ -45,21 +47,29 @@ func movement():
 func moveInput():
 	if turn == false:
 		if Input.is_action_pressed("move_up") && $Up.is_colliding() == false:
+			SignalManager.emit_signal("move")
 			up = tileSize
 			turn = true
 		if Input.is_action_pressed("move_down") && $Down.is_colliding() == false:
+			SignalManager.emit_signal("move")
 			down = tileSize
 			turn = true
 		if Input.is_action_pressed("move_left") && $Left.is_colliding() == false:
+			SignalManager.emit_signal("move")
 			left = tileSize
 			turn = true
 		if Input.is_action_pressed("move_right") && $Right.is_colliding() == false:
+			SignalManager.emit_signal("move")
 			right = tileSize
 			turn = true
-	pass
 
 func popAnim(direction):
 	if direction > tileSize / 2:
 		$Sprite.scale += Vector2(sizeIncrease, sizeIncrease)
 	else:
 		$Sprite.scale -= Vector2(sizeIncrease, sizeIncrease)
+
+
+func _on_Area2D_body_entered(body):
+	if body.name == "Enemy":
+		SignalManager.emit_signal("battle")

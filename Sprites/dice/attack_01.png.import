@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy_01.png-e32cf53fa5adf73b6fd4708b6668b777.stex"
+path="res://.import/attack_01.png-041440223fac580a4b39d605254c9c65.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemy_01.png"
-dest_files=[ "res://.import/enemy_01.png-e32cf53fa5adf73b6fd4708b6668b777.stex" ]
+source_file="res://Sprites/dice/attack_01.png"
+dest_files=[ "res://.import/attack_01.png-041440223fac580a4b39d605254c9c65.stex" ]
 
 [params]
 
