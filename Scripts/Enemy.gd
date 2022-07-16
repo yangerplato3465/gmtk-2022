@@ -16,13 +16,9 @@ func _physics_process(delta):
 func isNotMoving():
 	return left == 0 && right == 0 && up == 0 && down == 0
 
-func isNoInput():
-	return !Input.is_action_pressed("move_up") && !Input.is_action_pressed("move_down") && !Input.is_action_pressed("move_left") && !Input.is_action_pressed("move_right")
-
 func movement():
-	moveInput()
 	
-	if turn && isNoInput() && isNotMoving():
+	if turn && isNotMoving():
 		turn = false
 	
 	if left != 0:
@@ -41,22 +37,6 @@ func movement():
 		global_position.y += moveSpeed
 		popAnim(down)
 		down -= moveSpeed
-
-func moveInput():
-	if turn == false:
-		if Input.is_action_pressed("move_up") && $Up.is_colliding() == false:
-			up = tileSize
-			turn = true
-		if Input.is_action_pressed("move_down") && $Down.is_colliding() == false:
-			down = tileSize
-			turn = true
-		if Input.is_action_pressed("move_left") && $Left.is_colliding() == false:
-			left = tileSize
-			turn = true
-		if Input.is_action_pressed("move_right") && $Right.is_colliding() == false:
-			right = tileSize
-			turn = true
-	pass
 
 func popAnim(direction):
 	if direction > tileSize / 2:
