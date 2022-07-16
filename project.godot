@@ -8,10 +8,32 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Creature",
+"language": "GDScript",
+"path": "res://Scripts/CreatureModel/Creature.gd"
+}, {
+"base": "Creature",
+"class": "CreatureEnemy",
+"language": "GDScript",
+"path": "res://Scripts/CreatureModel/CreatureEnemy.gd"
+}, {
+"base": "Creature",
+"class": "CreaturePlayer",
+"language": "GDScript",
+"path": "res://Scripts/CreatureModel/CreaturePlayer.gd"
+} ]
+_global_script_class_icons={
+"Creature": "",
+"CreatureEnemy": "",
+"CreaturePlayer": ""
+}
+
 [application]
 
 config/name="gmtk2022"
-run/main_scene="res://Scene/World.tscn"
+run/main_scene="res://Scene/DwolfWorld.tscn"
 config/icon="res://icon.png"
 
 [autoload]
