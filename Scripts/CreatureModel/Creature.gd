@@ -4,17 +4,20 @@ class_name Creature
 # ---------member 變數---------
 var m_Hp = 4
 var m_actionDice = []
-var defaultSprite = preload("res://Sprites/char_01.png")
+var m_sprite = Sprite.new()
+var defaultSprite = load("res://Sprites/char_01.png")
 # ---------function---------
 func _init(var _hp, var _diceList):
 	print("[info] creater consructed")
 	SetHp(_hp)
 	SetActionDice(_diceList)
+	m_sprite.texture = load("res://Sprites/char_01.png")
+
 	#$Sprite.texture = defaultSprite
 	pass
 
 func _ready():
-	
+	self.add_child(m_sprite)
 	pass # Replace with function body.
 
 # 設定行動骰

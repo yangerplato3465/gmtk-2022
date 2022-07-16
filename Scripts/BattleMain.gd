@@ -23,15 +23,16 @@ func _ready():
 
 func TestData():
 	print("[info] BattleMain TestData")
-	var createPlayer = load("res://Prefab/PlayerInstane.tscn") #Creature.new(4,[])
+	var createPlayer = Creature.new(4,[])
 	#var craeteEnemy = [Creature.new(1,[]), Creature.new(1,[]), Creature.new(1,[])]
-	print("[TEST] is create success?", createPlayer)
+
 	SetBattleInfo(createPlayer, [])
 	pass
 
+# 進入戰鬥前設定戰鬥相關參數
 func SetBattleInfo(var player, var enemyList):
-	print("[info] BattleMain SetBattleInfo", m_playerNode, player, $PlayerNode)
-	m_playerNode.add_child(player.instance())
+	print("[info] BattleMain SetBattleInfo")
+	m_playerNode.add_child(player)
 	var enemyCount = 0 
 	for enemy in enemyList:
 		m_enemyNodeList[enemyCount].add_child(enemy)
@@ -60,12 +61,7 @@ func MoveInBattle():
 func MoveCharcater(var object, var startX, var endX):
 	print("[info] BattleMain MoveCharcater")
 	object.position.x = startX
-	var tween = Tween.new();
-	
-	tween.interpolate_property(object, "postition:x",startX  , endX, 5)
-
+	$Tween.interpolate_property(object, "position:x", startX  , endX, 0.5)
+	$Tween.start()
 	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

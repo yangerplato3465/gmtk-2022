@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/CreatureModel/Creature.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/CreatureModel/CreaturePlayer.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/char_01.png" type="Texture" id=2]
 
 [node name="PlayerInstane" type="Node2D"]
