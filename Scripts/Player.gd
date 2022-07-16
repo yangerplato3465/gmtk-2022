@@ -10,6 +10,12 @@ var right = 0
 var up = 0
 var down = 0
 
+var testArray = [1,2,3, null,"456"]
+
+func _ready():
+	print("@@ddw : ", testArray, len(testArray))
+	pass
+
 func _physics_process(delta):
 	movement();
 
