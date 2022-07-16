@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gmtk2022"
-run/main_scene="res://Scene/World.tscn"
+run/main_scene="res://Scene/DwolfWorld.tscn"
 config/icon="res://icon.png"
 
 [autoload]

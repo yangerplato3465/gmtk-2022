@@ -1,61 +1,122 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var MoveDistance = 40
+var m_moveDistance = 40
 var m_playerNode = null
+var m_player = null
 var m_enemyNodeList = []
-var processCB = null
+var m_enemyList = []
+var m_getPlayerData = false
+var m_getEnemyData = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	print("[info] BattleMain _ready")
 	m_playerNode = $PlayerNode
 	m_enemyNodeList.append($Enemy/EnemyNode_1)
 	m_enemyNodeList.append($Enemy/EnemyNode_2)
 	m_enemyNodeList.append($Enemy/EnemyNode_3)
+	
 	self.visible = false
+	
+	SignalManager.connect("battlePlayer", self, "GetPlayerBattleInfo")
+	SignalManager.connect("battleEnemy", self, "GetEnemyBattleInfo")
 	TestData()
-	Show()
-	pass # Replace with function body.
+	
 
 func TestData():
 	print("[info] BattleMain TestData")
-	var createPlayer = Creature.new(4,[])
-	#var craeteEnemy = [Creature.new(1,[]), Creature.new(1,[]), Creature.new(1,[])]
-
-	SetBattleInfo(createPlayer, [])
+	var playerTest = {
+		"hp" : 5,
+		"diceList" : []
+	}
+	var enemyTest = [
+		{
+			"hp" : 5,
+			"diceList" : []
+		},
+		{
+			"hp" : 5,
+			"diceList" : []
+		},
+		{
+			"hp" : 5,
+			"diceList" : []
+		},
+	]
+	GetPlayerBattleInfo(playerTest)
+	GetEnemyBattleInfo(enemyTest)
 	pass
 
-# 進入戰鬥前設定戰鬥相關參數
-func SetBattleInfo(var player, var enemyList):
-	print("[info] BattleMain SetBattleInfo")
-	m_playerNode.add_child(player)
-	var enemyCount = 0 
-	for enemy in enemyList:
-		m_enemyNodeList[enemyCount].add_child(enemy)
-		enemyCount += 1
-	pass
+# 收到玩家戰鬥資訊
+func GetPlayerBattleInfo(var playerDict):
+	print("[info] BattleMain GetPlayerBattleInfo", playerDict)
+	var hp = playerDict.hp
+	var diceList = playerDict.diceList
+	# 如果第一次近來 創建一個新的玩家，否則用舊的就好
+	if (m_player == null):
+		m_player = CreaturePlayer.new(hp, diceList)
+		m_playerNode.add_child(m_player)
+	else:
+		m_player.SetHp(hp)
+		m_player.SetActionDice(diceList)
+		
+	m_getPlayerData = true
+	Show()
+	
+# 收到敵人戰鬥資訊
+func GetEnemyBattleInfo(var enemyList):
+	print("[info] BattleMain GetEnemyBattleInfo", enemyList)
+	var enemyIdx = 0
+	for enemyDict in enemyList:
+		var hp = enemyDict.hp
+		var diceList = enemyDict.diceList
+		# 如果第一次近來 創建一個新的敵人，否則用舊的就好
+		if (len(m_enemyList) < enemyIdx+1):
+			var newEnemy = CreatureEnemy.new(hp, diceList)
+			m_enemyList.append(newEnemy)
+			m_enemyNodeList[enemyIdx].add_child(m_enemyList[enemyIdx])
+			m_enemyNodeList[enemyIdx].visible = true
+		else:
+			m_enemyList[enemyIdx].SetHp(hp)
+			m_enemyList[enemyIdx].SetActionDice(diceList)
+			m_enemyNodeList[enemyIdx].visible = true
+		
+		enemyIdx += 1
+		
+	m_getEnemyData = true
+	Show()
 
+# 開始
 func Show():
 	print("[info] BattleMain Show")
+	if (m_getEnemyData != true or m_getPlayerData != true):
+		return
+	
 	self.visible = true
 	MoveInBattle()
-	pass
 
+# 離開
 func Hide():
 	print("[info] BattleMain Hide")
 	self.visible = false
+	Reset()
 	pass
+
+# 離開時需要重置的參數
+func Reset():
+	print("[info] BattleMain Reset")
+	m_getPlayerData = false
+	m_getEnemyData = false
+	m_playerNode.visible(false)
+	for enemy in m_enemyNodeList:
+		enemy.visible(false)
 
 # 雙方腳色進入
 func MoveInBattle():
 	print("[info] BattleMain MoveInBattle")
-	MoveCharcater(m_playerNode, m_playerNode.position.x - MoveDistance, m_playerNode.position.x)
+	MoveCharcater(m_playerNode, m_playerNode.position.x - m_moveDistance, m_playerNode.position.x)
 	for enemy in m_enemyNodeList:
-		MoveCharcater(enemy, enemy.position.x + MoveDistance, enemy.position.x)
+		print("[TEST] enemy move", enemy, enemy.position.x + m_moveDistance, "|",enemy.position.x)
+		MoveCharcater(enemy, enemy.position.x + m_moveDistance, enemy.position.x)
 	pass
 
 func MoveCharcater(var object, var startX, var endX):
