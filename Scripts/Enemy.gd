@@ -79,9 +79,11 @@ func popAnim(direction):
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
-		var enemyInfo = {
-			"hp": health,
-			"diceList": diceOptions,
-			"num": numberOfEnemy
-		}
-		SignalManager.emit_signal("battleEnemyInfo", enemyInfo)
+		var enemiesInfo = []
+		for i in numberOfEnemy:
+			var enemyInfo = {
+				"hp": health,
+				"diceList": diceOptions,
+			}
+			enemiesInfo.append(enemyInfo)
+		SignalManager.emit_signal("battleEnemyInfo", enemiesInfo)
