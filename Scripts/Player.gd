@@ -51,6 +51,9 @@ func movement():
 func moveInput():
 	if turn == false && canMove:
 		if Input.is_action_pressed("move_up") && $Up.is_colliding() == false:
+			var text = preload("res://Prefab/PopLabel.tscn").instance()
+			text.setText("up")
+			add_child(text)
 			AudioLibrary.play("footstep")
 			SignalManager.emit_signal("move")
 			up = tileSize
