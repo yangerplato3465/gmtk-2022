@@ -36,7 +36,7 @@ func _process(delta):
 
 
 func ActionAttack(var target, var isCrit):
-	print("[INFO] Creature ActionAttack", $Sprite)
+	print("[INFO] Creature ActionAttack")
 	
 	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x - 10, 0.2)
 	$Tween.start()
@@ -50,9 +50,13 @@ func ActionAttack(var target, var isCrit):
 	
 	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x + 10, 0.3)
 	$Tween.start()
+
+func ActionAoeAttack(var targetList):
+	print("[INFO] Creature ActionAoeAttack")
+	
 	
 func ActionArmor():
-	print("[INFO] Creature ActionArmor", $Sprite)
+	print("[INFO] Creature ActionArmor")
 	
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y - 10, 0.2)
 	$Tween.start()
@@ -84,3 +88,8 @@ func ActionPotion():
 	
 	yield($Tween, "tween_completed")
 	$Health/Label/up.visible = false
+	
+func ShowDead():
+	$Sprite.texture = load("res://Sprites/dead.png")
+	yield(get_tree().create_timer(0.5), "timeout")
+	queue_free()

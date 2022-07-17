@@ -82,8 +82,15 @@ func Show():
 	m_startBattle = true
 
 # 離開
-func Hide():
+func Hide(lose = false):
+	print("[INFO] BattleMain Hide, lose=", lose)
 	self.visible = false
+	if lose:
+		# 輸掉要做的
+		pass
+	else:
+		# 贏了之後要做的
+		pass
 	Reset()
 	pass
 
@@ -91,11 +98,13 @@ func Hide():
 func Reset():
 	m_getPlayerData = false
 	m_getEnemyData = false
-	m_playerNode.visible(false)
+	m_playerNode.visible = false
 	for enemy in m_enemyNodeList:
-		enemy.visible(false)
+		enemy.visible = false
 	m_startBattle = false
 	m_enemyMoveList = []
+	$DefeatLabel.visible = false
+	$VictoryLabel.visible = false
 
 # 雙方腳色進入
 func MoveInBattle():
@@ -113,7 +122,7 @@ func MoveCharcater(var object, var startX, var endX):
 func _process(delta):
 	if(m_startBattle == false):
 		return
-		
+	
 	if Input.is_action_just_pressed("ui_accept") && !m_isRolling:
 		rollDice()
 		m_isRolling = true
@@ -124,7 +133,6 @@ func rollDice():
 		enemy.rollDice()
 	yield(get_tree().create_timer(3), "timeout")
 	DoAction()
-	
 	
 func DoAction():
 	
@@ -142,18 +150,45 @@ func DoAction():
 	yield(get_tree().create_timer(1), "timeout")
 	
 	for enemy in m_enemyMoveList:
-		if enemy.m_currentAction == 'attack':
-			enemy.ActionAttack()
-		elif enemy.m_currentAction == 'attackCrit':
-			enemy.ActionAttack()
-		elif enemy.m_currentAction == 'attackAoe':
-			pass
-		elif enemy.m_currentAction == 'armor':
-			enemy.ActionArmor()
-		elif enemy.m_currentAction == 'potion':
-			enemy.ActionPotion()
-
+		if enemy.GetHp() <= 0:
+			m_enemyMoveList.erase(enemy)
+			enemy.ShowDead()
+			CheckEndCondition()
+		else:
+			if enemy.m_currentAction == 'attack':
+				enemy.ActionAttack(m_player, false)
+			elif enemy.m_currentAction == 'attackCrit':
+				enemy.ActionAttack(m_player, true)
+			elif enemy.m_currentAction == 'attackAoe':
+				pass
+			elif enemy.m_currentAction == 'armor':
+				enemy.ActionArmor()
+			elif enemy.m_currentAction == 'potion':
+				enemy.ActionPotion()
+		CheckEndCondition()
 		yield(get_tree().create_timer(1), "timeout")
 	
 	m_isRolling = false
 	
+func CheckEndCondition():
+	print("[INFO] BattleMain CheckEndCondition", m_enemyMoveList, m_player.GetHp())
+	yield(get_tree().create_timer(1), "timeout")
+	if m_player.GetHp() <= 0 :
+		m_player.ShowDead()
+		Defeat()
+	if len(m_enemyMoveList) <= 0 :
+		Victory()
+
+	
+func Victory():
+	$VictoryLabel.visible = true
+	yield(get_tree().create_timer(2), "timeout")
+	Hide()
+	pass
+	
+func Defeat():
+	yield(get_tree().create_timer(1), "timeout")
+	$DefeatLabel.visible = true
+	yield(get_tree().create_timer(2), "timeout")
+	Hide(true)
+	pass

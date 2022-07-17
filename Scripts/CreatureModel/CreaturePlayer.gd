@@ -75,3 +75,7 @@ func ActionPotion():
 	
 	yield($Tween, "tween_completed")
 	$Health/Label/up.visible = false
+
+func ShowDead():
+	$Tween.interpolate_property($Sprite, "rotation", 0, -1.5, 0.2)
+	$Tween.start()
