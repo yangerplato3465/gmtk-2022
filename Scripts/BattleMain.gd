@@ -143,9 +143,9 @@ func DoAction():
 	
 	for enemy in m_enemyMoveList:
 		if enemy.m_currentAction == 'attack':
-			enemy.ActionAttack()
+			enemy.ActionAttack(m_player, false)
 		elif enemy.m_currentAction == 'attackCrit':
-			enemy.ActionAttack()
+			enemy.ActionAttack(m_player, true)
 		elif enemy.m_currentAction == 'attackAoe':
 			pass
 		elif enemy.m_currentAction == 'armor':

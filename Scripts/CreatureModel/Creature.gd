@@ -51,7 +51,7 @@ func ChoiceDice(var index):
 
 # 設定血量
 func SetHp(var _hp):
-	m_hp = _hp
+	m_hp = max(0, _hp)
 	refreshUI()
 
 # 設定最大血量
