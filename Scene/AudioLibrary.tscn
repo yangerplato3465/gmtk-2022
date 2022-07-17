@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Audio/attackCrit.wav" type="AudioStream" id=1]
+[ext_resource path="res://Audio/attack.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/armor.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/attackAoe.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/AudioLibrary.gd" type="Script" id=5]
+[ext_resource path="res://Audio/potion.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/footstep.wav" type="AudioStream" id=7]
+
+[node name="AudioLibrary" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="attackCrit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+
+[node name="attackAoe" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="potion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="armor" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="footstep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="enemyAttack" type="AudioStreamPlayer" parent="."]

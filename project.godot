@@ -39,6 +39,7 @@ config/icon="res://icon.png"
 [autoload]
 
 SignalManager="*res://SignalManager.gd"
+AudioLibrary="*res://Scene/AudioLibrary.tscn"
 
 [input]
 

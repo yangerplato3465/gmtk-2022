@@ -51,18 +51,25 @@ func movement():
 func moveInput():
 	if turn == false && canMove:
 		if Input.is_action_pressed("move_up") && $Up.is_colliding() == false:
+			AudioLibrary.play("footstep")
 			SignalManager.emit_signal("move")
 			up = tileSize
 			turn = true
 		if Input.is_action_pressed("move_down") && $Down.is_colliding() == false:
+			var text = preload("res://Prefab/PopLabel.tscn").instance()
+			text.setText("down")
+			add_child(text)
+			AudioLibrary.play("footstep")
 			SignalManager.emit_signal("move")
 			down = tileSize
 			turn = true
 		if Input.is_action_pressed("move_left") && $Left.is_colliding() == false:
+			AudioLibrary.play("footstep")
 			SignalManager.emit_signal("move")
 			left = tileSize
 			turn = true
 		if Input.is_action_pressed("move_right") && $Right.is_colliding() == false:
+			AudioLibrary.play("footstep")
 			SignalManager.emit_signal("move")
 			right = tileSize
 			turn = true
