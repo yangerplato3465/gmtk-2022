@@ -91,7 +91,7 @@ func Hide(lose = false):
 		# 輸掉要做的
 		pass
 	else:
-		SignalManager.emit_signal("battleWin")
+		SignalManager.emit_signal("toUpgrade")
 		if enemyBody != null:
 			enemyBody.death()
 		pass

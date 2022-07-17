@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gmtk2022"
-run/main_scene="res://Scene/Stage1.tscn"
+run/main_scene="res://Scene/Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -41,6 +41,10 @@ config/icon="res://icon.png"
 SignalManager="*res://SignalManager.gd"
 AudioLibrary="*res://Scene/AudioLibrary.tscn"
 GameManager="*res://Scripts/GameManager.gd"
+
+[display]
+
+window/size/resizable=false
 
 [input]
 

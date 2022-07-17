@@ -49,12 +49,12 @@ var data = [
 ]
 
 var cursorCurrent = 1
-onready var cursor1 = get_node("CanvasLayer/Options/Option0/Cursor")
-onready var cursor2 = get_node("CanvasLayer/Options/Option1/Cursor")
-onready var cursor3 = get_node("CanvasLayer/Options/Option2/Cursor")
-onready var option1 = get_node("CanvasLayer/Options/Option0")
-onready var option2 = get_node("CanvasLayer/Options/Option1")
-onready var option3 = get_node("CanvasLayer/Options/Option2")
+onready var cursor1 = get_node("Options/Option0/Cursor")
+onready var cursor2 = get_node("Options/Option1/Cursor")
+onready var cursor3 = get_node("Options/Option2/Cursor")
+onready var option1 = get_node("Options/Option0")
+onready var option2 = get_node("Options/Option1")
+onready var option3 = get_node("Options/Option2")
 
 var attack = preload("res://Sprites/dice/attack_01.png")
 var attackCrit = preload("res://Sprites/dice/attack_02.png")
@@ -63,6 +63,10 @@ var armor = preload("res://Sprites/dice/armor.png")
 var potion = preload("res://Sprites/dice/health_potion.png")
 var heart = preload("res://Sprites/health.png")
 var selectedUpgrades = []
+
+func _ready():
+	set_process(false)
+	SignalManager.connect("toUpgrade", self, "show")
 
 func init():
 	setCursor()
@@ -83,8 +87,8 @@ func generateRandomOption():
 func setOption(data, index):
 	if data == null:
 		return
-	var description = get_node("CanvasLayer/Options/Option" + String(index) + "/Description")
-	var icon = get_node("CanvasLayer/Options/Option" + String(index) + "/Icon")
+	var description = get_node("Options/Option" + String(index) + "/Description")
+	var icon = get_node("Options/Option" + String(index) + "/Icon")
 	description.text = data.description
 	setTexture(icon, data.icon)
 
@@ -99,6 +103,8 @@ func setTexture(node, icon):
 		node.texture = armor
 	elif icon == 'potion':
 		node.texture = potion
+	elif icon == 'heart':
+		node.texture = heart
 	else:
 		node.texture = attack
 	
@@ -119,7 +125,10 @@ func getInput():
 		setCursor()
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		SignalManager.emit_signal("chooseUpgrade", selectedUpgrades[cursorCurrent])
+		if selectedUpgrades.size() > 0:
+			SignalManager.emit_signal("chooseUpgrade", selectedUpgrades[cursorCurrent])
+			SignalManager.emit_signal("battleWin")
+			hide()
 
 
 func setCursor():
@@ -147,6 +156,15 @@ func playAnim(node):
 	yield(tween, "tween_completed")
 	tween.interpolate_property(node, "rect_rotation", rotation, 0, 0.2)
 	tween.start()
+
+func show():
+	set_process(true)
+	init()
+	self.visible = true
+
+func hide():
+	set_process(false)
+	self.visible = false
 
 
 
