@@ -60,8 +60,6 @@ func showAnim():
 	tween.interpolate_property(self, "rotation", -0.3, 0.3, 0.2)
 	tween.start()
 
-
-
 func _on_Tween_tween_all_completed():
 	self.rotation = 0
 	$ActionLabel.text = finalDecision + "!"
