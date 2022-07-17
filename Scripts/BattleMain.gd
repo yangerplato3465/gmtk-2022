@@ -131,6 +131,7 @@ func _process(delta):
 		m_isRolling = true
 
 func rollDice():
+	AudioLibrary.play("dice")
 	m_player.rollDice()
 	for enemy in m_enemyMoveList:
 		enemy.rollDice()

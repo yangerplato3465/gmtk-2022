@@ -23,27 +23,27 @@ var data = [
 	},
 	{
 		"name": "add_attack_option",
-		"description": "add a attack option to your dice",
+		"description": "dice attack option +1",
 		"icon": "attack",
 	},
 	{
 		"name": "add_attackcrit_option",
-		"description": "add a crit option to your dice",
+		"description": "dice crit option +1",
 		"icon": "attackCrit",
 	},
 	{
 		"name": "add_attackaoe_option",
-		"description": "add a aoe option to your dice",
+		"description": "dice aoe option to your dice",
 		"icon": "attackAoe",
 	},
 	{
 		"name": "add_potion_option",
-		"description": "add a potion option to your dice",
+		"description": "dice potion option +1",
 		"icon": "potion",
 	},
 	{
 		"name": "add_armor_option",
-		"description": "add a armor option to your dice",
+		"description": "dice armor option +1",
 		"icon": "armor",
 	}
 ]

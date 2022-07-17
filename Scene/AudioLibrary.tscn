@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Audio/attackCrit.wav" type="AudioStream" id=1]
 [ext_resource path="res://Audio/attack.wav" type="AudioStream" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Audio/potion.wav" type="AudioStream" id=6]
 [ext_resource path="res://Audio/footstep.wav" type="AudioStream" id=7]
 [ext_resource path="res://Audio/uiSelect.wav" type="AudioStream" id=8]
+[ext_resource path="res://Audio/dice.wav" type="AudioStream" id=9]
+[ext_resource path="res://Audio/enemyAttack.wav" type="AudioStream" id=10]
 
 [node name="AudioLibrary" type="Node2D"]
 script = ExtResource( 5 )
@@ -31,6 +33,10 @@ stream = ExtResource( 3 )
 stream = ExtResource( 7 )
 
 [node name="enemyAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
 
 [node name="uiSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="dice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
