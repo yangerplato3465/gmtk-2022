@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/FantasyMusic.mp3-1213dbbaff0b032404b1b52c323658ae.mp3str"
+
+[deps]
+
+source_file="res://Audio/FantasyMusic.mp3"
+dest_files=[ "res://.import/FantasyMusic.mp3-1213dbbaff0b032404b1b52c323658ae.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

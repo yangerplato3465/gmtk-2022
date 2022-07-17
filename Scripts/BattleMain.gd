@@ -116,6 +116,7 @@ func Reset():
 	m_enemyMoveList = []
 	$DefeatLabel.visible = false
 	$VictoryLabel.visible = false
+	$LabelBackGround.visible = false
 
 # 雙方腳色進入
 func MoveInBattle():
@@ -192,6 +193,8 @@ func CheckEndCondition():
 func Victory():
 	m_startBattle = false
 	$VictoryLabel.visible = true
+	$LabelBackGround.visible = true
+	AudioLibrary.play("Victory")
 	yield(get_tree().create_timer(2), "timeout")
 	Hide()
 	pass
@@ -200,6 +203,8 @@ func Defeat():
 	m_startBattle = false
 	yield(get_tree().create_timer(1), "timeout")
 	$DefeatLabel.visible = true
+	$LabelBackGround.visible = true
+	AudioLibrary.play("Defeat")
 	yield(get_tree().create_timer(2), "timeout")
 	Hide(true)
 	pass
