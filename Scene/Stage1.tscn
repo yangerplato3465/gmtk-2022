@@ -139,8 +139,6 @@ damage = 2
 [node name="Enemy2" parent="EnemyContainer" instance=ExtResource( 2 )]
 position = Vector2( 344, 120 )
 enemyType = "crab"
-health = 7
-damage = 2
 
 [node name="Enemy3" parent="EnemyContainer" instance=ExtResource( 2 )]
 position = Vector2( 296, 184 )
@@ -149,13 +147,9 @@ numberOfEnemy = 2
 [node name="Enemy4" parent="EnemyContainer" instance=ExtResource( 2 )]
 position = Vector2( 136, 216 )
 numberOfEnemy = 2
-health = 10
-damage = 2
 
 [node name="Enemy5" parent="EnemyContainer" instance=ExtResource( 2 )]
 position = Vector2( 200, 104 )
-health = 7
-damage = 2
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 40, 72 )
@@ -188,5 +182,6 @@ scale = Vector2( 3, 3 )
 
 [node name="Door" parent="." instance=ExtResource( 8 )]
 position = Vector2( 352, 24 )
+nextScene = "res://Scene/Stage2.tscn"
 
 [editable path="Player"]

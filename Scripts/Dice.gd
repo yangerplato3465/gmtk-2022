@@ -24,6 +24,7 @@ func rollDice():
 	if currentOption.size() <= 0:
 		return
 	self.visible = true
+	$ActionLabel.visible = false
 	$Timer.start();
 
 func _on_Timer_timeout():
@@ -62,7 +63,7 @@ func showAnim():
 
 func _on_Tween_tween_all_completed():
 	self.rotation = 0
-	
+	$ActionLabel.visible = true
 	if finalDecision == 'attackAoe':
 		$ActionLabel.text = 'AOE' + "!"
 	elif finalDecision == 'attackCrit':

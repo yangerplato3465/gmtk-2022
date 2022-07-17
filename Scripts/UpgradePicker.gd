@@ -8,7 +8,7 @@ var data = [
 	},
 	{
 		"name": "upgrade_potion_power",
-		"description": "potion power +1",
+		"description": "potion heals more +1",
 		"icon": "potion",
 	},
 	{
@@ -23,27 +23,27 @@ var data = [
 	},
 	{
 		"name": "add_attack_option",
-		"description": "dice attack option +1",
+		"description": "+1 attack option to your dice",
 		"icon": "attack",
 	},
 	{
 		"name": "add_attackcrit_option",
-		"description": "dice crit attack option +1",
+		"description": "+1 crit attack option to your dice",
 		"icon": "attackCrit",
 	},
 	{
 		"name": "add_attackaoe_option",
-		"description": "dice area attack option +1",
+		"description": "+1 area attack option to your dice",
 		"icon": "attackAoe",
 	},
 	{
 		"name": "add_potion_option",
-		"description": "dice potion option +1",
+		"description": "+1 potion option to your dice",
 		"icon": "potion",
 	},
 	{
 		"name": "add_armor_option",
-		"description": "dice armor option +1",
+		"description": "+1 armor option to your dice",
 		"icon": "armor",
 	}
 ]
