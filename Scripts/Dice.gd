@@ -1,6 +1,6 @@
 extends Sprite
 
-var currentOption = ['attack', 'attack', 'attack', 'attackCrit', 'attackAoe', 'armor', 'potion']
+var currentOption = []
 var diceAnimCount = 0
 var finalDecision = 0;
 
