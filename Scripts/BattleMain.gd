@@ -39,8 +39,7 @@ func GetPlayerBattleInfo(body):
 		m_player.init(hp, armor, damage,diceList)
 		m_playerNode.add_child(m_player)
 	else:
-		m_player.SetHp(hp)
-		m_player.SetActionDice(diceList)
+		m_player.init(hp, armor, damage,diceList)
 	
 	m_getPlayerData = true
 	Show()
@@ -63,7 +62,7 @@ func GetEnemyBattleInfo(var enemyList):
 			m_enemyNodeList[enemyIdx].visible = true
 			m_enemyMoveList.append(newEnemy)
 		else:
-			m_enemyList[enemyIdx].SetHp(hp)
+			m_enemyList[enemyIdx].init(hp, armor, damage,diceList, enemyType)
 			m_enemyList[enemyIdx].SetActionDice(diceList)
 			m_enemyNodeList[enemyIdx].visible = true
 			m_enemyMoveList.append(m_enemyList[enemyIdx])

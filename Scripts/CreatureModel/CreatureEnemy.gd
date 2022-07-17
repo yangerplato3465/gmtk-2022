@@ -24,7 +24,7 @@ func rollDice():
 	m_isRolling = true
 	$Dice.visible = true
 	$Dice.rollDice()
-	
+
 func _process(delta):
 	if ($Dice.finalDecision != "" and m_isRolling):
 		m_currentAction = $Dice.finalDecision
@@ -91,5 +91,3 @@ func ActionPotion():
 	
 func ShowDead():
 	$Sprite.texture = load("res://Sprites/dead.png")
-	yield(get_tree().create_timer(0.5), "timeout")
-	queue_free()
