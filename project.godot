@@ -40,6 +40,7 @@ config/icon="res://icon.png"
 
 SignalManager="*res://SignalManager.gd"
 AudioLibrary="*res://Scene/AudioLibrary.tscn"
+GameManager="*res://Scripts/GameManager.gd"
 
 [input]
 
