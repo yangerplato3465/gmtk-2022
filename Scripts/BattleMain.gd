@@ -40,7 +40,7 @@ func GetPlayerBattleInfo(body):
 		m_playerNode.add_child(m_player)
 	else:
 		m_player.init(hp, armor, damage,diceList)
-	
+	m_playerNode.visible = true
 	m_getPlayerData = true
 	Show()
 	
@@ -144,7 +144,7 @@ func DoAction():
 	elif m_player.m_currentAction == 'attackCrit':
 		m_player.ActionAttack(m_enemyMoveList[0], true)
 	elif m_player.m_currentAction == 'attackAoe':
-		pass
+		m_player.ActionAoeAttack(m_enemyMoveList)
 	elif m_player.m_currentAction == 'armor':
 		m_player.ActionArmor()
 	elif m_player.m_currentAction == 'potion':
@@ -163,7 +163,7 @@ func DoAction():
 			elif enemy.m_currentAction == 'attackCrit':
 				enemy.ActionAttack(m_player, true)
 			elif enemy.m_currentAction == 'attackAoe':
-				pass
+				enemy.ActionAttack(m_player, false)
 			elif enemy.m_currentAction == 'armor':
 				enemy.ActionArmor()
 			elif enemy.m_currentAction == 'potion':

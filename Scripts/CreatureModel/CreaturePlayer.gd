@@ -41,7 +41,20 @@ func ActionAttack(var target, var isCrit):
 	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x - 10, 0.3)
 	$Tween.start()
 	
+func ActionAoeAttack(var targetList):
+	print("[INFO] Creature ActionAoeAttack")
+	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x + 10, 0.2)
+	$Tween.start()
 	
+	yield($Tween, "tween_completed")
+	
+	for target in targetList:
+		target.GetHurt(m_damage)
+	
+	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x - 10, 0.3)
+	$Tween.start()
+
+
 func ActionArmor():
 	print("[INFO] Creature ActionArmor", $Sprite)
 	
