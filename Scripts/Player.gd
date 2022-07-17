@@ -11,7 +11,11 @@ var right = 0
 var up = 0
 var down = 0
 
+func _ready():
+	SignalManager.connect("battleWin", self, "setCanMove")
 
+func setCanMove():
+	canMove = true
 
 func _physics_process(delta):
 	movement();
@@ -48,17 +52,14 @@ func movement():
 func moveInput():
 	if turn == false && canMove:
 		if Input.is_action_pressed("move_up") && $Up.is_colliding() == false:
-			var text = preload("res://Prefab/PopLabel.tscn").instance()
-			text.setText("up")
-			add_child(text)
+#			var text = preload("res://Prefab/PopLabel.tscn").instance()
+#			text.setText("up")
+#			add_child(text)
 			AudioLibrary.play("footstep")
 			SignalManager.emit_signal("move")
 			up = tileSize
 			turn = true
 		if Input.is_action_pressed("move_down") && $Down.is_colliding() == false:
-			var text = preload("res://Prefab/PopLabel.tscn").instance()
-			text.setText("down")
-			add_child(text)
 			AudioLibrary.play("footstep")
 			SignalManager.emit_signal("move")
 			down = tileSize
@@ -84,5 +85,5 @@ func popAnim(direction):
 func _on_Area2D_body_entered(body):
 	print(body)
 	if "Enemy" in body.name:
-		SignalManager.emit_signal("battlePlayerInfo")
+		SignalManager.emit_signal("battlePlayerInfo", body)
 		canMove = false

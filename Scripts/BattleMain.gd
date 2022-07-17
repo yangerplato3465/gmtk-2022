@@ -9,6 +9,7 @@ var m_getPlayerData = false
 var m_getEnemyData = false
 var m_startBattle = false
 var m_enemyMoveList = []
+var enemyBody = null
 
 var playersTurn = true
 var canRollDice = true
@@ -26,11 +27,12 @@ func _ready():
 	SignalManager.connect("battleEnemyInfo", self, "GetEnemyBattleInfo")
 
 # 收到玩家戰鬥資訊
-func GetPlayerBattleInfo(var playerDict):
-	var hp = playerDict.hp
-	var armor = playerDict.armor
-	var damage = playerDict.damage
-	var diceList = playerDict.diceList
+func GetPlayerBattleInfo(body):
+	enemyBody = body
+	var hp = GameManager.playerHp
+	var armor = GameManager.playerArmor
+	var damage = GameManager.playerDamage
+	var diceList = GameManager.playerDiceOptions
 	# 如果第一次近來 創建一個新的玩家，否則用舊的就好
 	if (m_player == null):
 		m_player = load("res://Prefab/PlayerInstane.tscn").instance()
@@ -89,7 +91,9 @@ func Hide(lose = false):
 		# 輸掉要做的
 		pass
 	else:
-		# 贏了之後要做的
+		SignalManager.emit_signal("battleWin")
+		if enemyBody != null:
+			enemyBody.death()
 		pass
 	Reset()
 	pass

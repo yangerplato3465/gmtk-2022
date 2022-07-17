@@ -78,6 +78,9 @@ func popAnim(direction):
 	else:
 		$Sprite.scale -= Vector2(sizeIncrease, sizeIncrease)
 
+func death():
+	queue_free()
+
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
