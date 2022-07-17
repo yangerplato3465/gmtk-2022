@@ -8,13 +8,15 @@ var turn = false
 var moveSpeed = 2
 var sizeIncrease = 0.035
 var health = 5
+var damage = 1
+var armor = 0
 
 var left = 0
 var right = 0
 var up = 0
 var down = 0
 
-var diceOptions = ['attack_1', 'attack_1', 'attack_1', 'attack_2', 'attack_aoe', 'armor_1', 'potion_1']
+var diceOptions = ['attack', 'attack', 'attack', 'attack', 'attack_aoe', 'armor', 'potion']
 
 func _ready():
 	if enemyType == "cactus":
@@ -83,7 +85,10 @@ func _on_Area2D_body_entered(body):
 		for i in numberOfEnemy:
 			var enemyInfo = {
 				"hp": health,
+				"armor": armor,
+				"damage": damage,
 				"diceList": diceOptions,
+				"enemyType": enemyType, 
 			}
 			enemiesInfo.append(enemyInfo)
 		SignalManager.emit_signal("battleEnemyInfo", enemiesInfo)

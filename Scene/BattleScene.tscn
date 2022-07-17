@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/battle_bg.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/BattleMain.gd" type="Script" id=2]
 [ext_resource path="res://Tilesets/Ground.tres" type="TileSet" id=3]
 [ext_resource path="res://Tilesets/Wall.tres" type="TileSet" id=4]
-[ext_resource path="res://Prefab/Dice.tscn" type="PackedScene" id=5]
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource( 2 )
@@ -54,7 +53,3 @@ position = Vector2( 128, 48 )
 position = Vector2( 128, 96 )
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="Dice" parent="." instance=ExtResource( 5 )]
-visible = false
-position = Vector2( 0, 0 )

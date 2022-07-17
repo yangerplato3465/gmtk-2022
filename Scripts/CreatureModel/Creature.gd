@@ -1,19 +1,24 @@
 extends Node2D
 
 class_name Creature
+
 # ---------member 變數---------
 var m_hp = 4
 var m_maxHp = 4
+var m_armor = 0
+var m_damage = 1
 var m_actionDice = []
 var m_defaultSprite = load("res://Sprites/char_01.png")
 
 # ---------function---------
 
-func init(var _hp, var _diceList):
+func init(var _hp, var _armor, var _damage,var _diceList, var _enemyType = ""):
 	print("[info] Creature init")
 	SetHp(_hp)
 	SetMaxHp(_hp)
 	SetActionDice(_diceList)
+	SetArmor(_armor)
+	SetDamage(_damage)
 	$Sprite.texture = m_defaultSprite
 
 func _ready():
@@ -22,8 +27,7 @@ func _ready():
 
 # 設定行動骰
 func SetActionDice(var diceList):
-	for dice in diceList:
-		m_actionDice.append(dice)
+	$Dice.setOptions(diceList)
 
 
 # 擲骰子
@@ -46,7 +50,7 @@ func ChoiceDice(var index):
 # 設定血量
 func SetHp(var _hp):
 	m_hp = _hp
-	pass
+	refreshUI()
 
 # 設定最大血量
 func SetMaxHp(var _hp):
@@ -61,7 +65,11 @@ func GetMaxHp():
 
 # 生物收到傷害
 func GetHurt(var damage):
-	SetHp(m_hp - damage)
+	var damageHp = max(0, damage - m_armor)
+	if(m_armor > 0) :
+		SetArmor(max(0, m_armor - damage))
+		pass
+	SetHp(m_hp - damageHp)
 	pass
 	
 # 生物受到治癒
@@ -69,4 +77,25 @@ func GetCure(var cure):
 	SetHp(m_hp + cure)
 	pass
 
-# 在生物下方展示血量曹
+func SetArmor(var _armor):
+	m_armor = _armor
+	refreshUI()
+	
+
+func AddArmor(var _armor):
+	m_armor += _armor
+
+func GetArmor():
+	return m_armor
+
+func SetDamage(var _damage):
+	m_damage = _damage
+
+func GetDamage():
+	return m_damage
+
+func refreshUI():
+	pass
+
+func rollDice():
+	pass
