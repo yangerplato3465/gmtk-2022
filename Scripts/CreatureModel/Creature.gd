@@ -11,6 +11,7 @@ var m_actionDice = []
 var m_currentAction = null
 var m_defaultSprite = load("res://Sprites/char_01.png")
 var m_isRolling = false
+var m_actionMoveDistance = 10
 # ---------function---------
 
 func init(var _hp, var _armor, var _damage,var _diceList, var _enemyType = ""):
@@ -69,20 +70,30 @@ func GetHurt(var damage):
 	var damageHp = max(0, damage - m_armor)
 	if(m_armor > 0) :
 		SetArmor(max(0, m_armor - damage))
+		$Armor/Label/down.visible = true
 		pass
-	SetHp(m_hp - damageHp)
+	var tween = $Tween
+	tween.interpolate_property($Sprite, "rotation", -0.5, 0, 0.2)
+	tween.start()
+	
+	if(damageHp > 0):
+		$Health/Label/down.visible = true
+		SetHp(m_hp - damageHp)
+	
+	yield(get_tree().create_timer(1), "timeout")
+	$Health/Label/down.visible = false
+	$Armor/Label/down.visible = false
 	pass
 	
 # 生物受到治癒
 func GetCure(var cure):
-	SetHp(m_hp + cure)
+	SetHp(min(m_hp + cure, m_maxHp))
 	pass
 
 func SetArmor(var _armor):
 	m_armor = _armor
 	refreshUI()
 	
-
 func AddArmor(var _armor):
 	m_armor += _armor
 
@@ -101,16 +112,5 @@ func refreshUI():
 func rollDice():
 	pass
 	
-func DoAction():
-	if m_currentAction == 'attack':
-		pass
-	elif m_currentAction == 'attackCrit':
-		pass
-	elif m_currentAction == 'attackAoe':
-		pass
-	elif m_currentAction == 'armor':
-		pass
-	elif m_currentAction == 'potion':
-		pass
 
-	pass
+

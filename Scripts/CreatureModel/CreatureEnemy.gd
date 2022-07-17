@@ -34,3 +34,53 @@ func _process(delta):
 		$Dice.finalDecision = ""
 		$Dice.visible = false
 
+
+func ActionAttack(var target, var isCrit):
+	print("[INFO] Creature ActionAttack", $Sprite)
+	
+	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x - 10, 0.2)
+	$Tween.start()
+	
+	yield($Tween, "tween_completed")
+	
+	if isCrit:
+		target.GetHurt(m_damage * 2)
+	else:
+		target.GetHurt(m_damage)
+	
+	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x + 10, 0.3)
+	$Tween.start()
+	
+func ActionArmor():
+	print("[INFO] Creature ActionArmor", $Sprite)
+	
+	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y - 10, 0.2)
+	$Tween.start()
+	
+	yield($Tween, "tween_completed")
+	
+	SetArmor(2)
+	$Armor/Label/up.visible = true
+	
+	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)
+	$Tween.start()
+	
+	yield($Tween, "tween_completed")
+	$Armor/Label/up.visible = false
+
+func ActionPotion():
+	print("[INFO] Creature ActionPotion")
+	
+	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y - 10, 0.2)
+	$Tween.start()
+	
+	yield($Tween, "tween_completed")
+	
+	GetCure(2)
+	$Health/Label/up.visible = true
+	
+	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)
+	$Tween.start()
+	
+	yield($Tween, "tween_completed")
+	$Health/Label/up.visible = false

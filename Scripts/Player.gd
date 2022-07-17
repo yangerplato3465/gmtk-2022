@@ -14,7 +14,8 @@ var right = 0
 var up = 0
 var down = 0
 
-var diceOptions = ['attack', 'attack', 'attack', 'attackCrit', 'attackAoe', 'armor', 'potion']
+#var diceOptions = ['attack', 'attack', 'attack', 'attackCrit', 'attackAoe', 'armor', 'potion']
+var diceOptions = ['attack', 'attack']
 
 func _physics_process(delta):
 	movement();

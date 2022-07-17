@@ -8,7 +8,7 @@ var m_enemyList = []
 var m_getPlayerData = false
 var m_getEnemyData = false
 var m_startBattle = false
-var m_moveList = []
+var m_enemyMoveList = []
 
 var playersTurn = true
 var canRollDice = true
@@ -40,7 +40,6 @@ func GetPlayerBattleInfo(var playerDict):
 		m_player.SetHp(hp)
 		m_player.SetActionDice(diceList)
 	
-	m_moveList.append(m_player)
 	m_getPlayerData = true
 	Show()
 	
@@ -60,12 +59,12 @@ func GetEnemyBattleInfo(var enemyList):
 			m_enemyList.append(newEnemy)
 			m_enemyNodeList[enemyIdx].add_child(m_enemyList[enemyIdx])
 			m_enemyNodeList[enemyIdx].visible = true
-			m_moveList.append(newEnemy)
+			m_enemyMoveList.append(newEnemy)
 		else:
 			m_enemyList[enemyIdx].SetHp(hp)
 			m_enemyList[enemyIdx].SetActionDice(diceList)
 			m_enemyNodeList[enemyIdx].visible = true
-			m_moveList.append(m_enemyList[enemyIdx])
+			m_enemyMoveList.append(m_enemyList[enemyIdx])
 		
 		enemyIdx += 1
 		
@@ -96,7 +95,7 @@ func Reset():
 	for enemy in m_enemyNodeList:
 		enemy.visible(false)
 	m_startBattle = false
-	m_moveList = []
+	m_enemyMoveList = []
 
 # 雙方腳色進入
 func MoveInBattle():
@@ -120,13 +119,41 @@ func _process(delta):
 		m_isRolling = true
 
 func rollDice():
-	for action in m_moveList:
-		action.rollDice()
+	m_player.rollDice()
+	for enemy in m_enemyMoveList:
+		enemy.rollDice()
 	yield(get_tree().create_timer(3), "timeout")
+	DoAction()
 	
-	m_isRolling = false
 	
 func DoAction():
-	for action in m_moveList:
-		action.DoAction()
+	
+	if m_player.m_currentAction == 'attack':
+		m_player.ActionAttack(m_enemyMoveList[0], false)
+	elif m_player.m_currentAction == 'attackCrit':
+		m_player.ActionAttack(m_enemyMoveList[0], true)
+	elif m_player.m_currentAction == 'attackAoe':
+		pass
+	elif m_player.m_currentAction == 'armor':
+		m_player.ActionArmor()
+	elif m_player.m_currentAction == 'potion':
+		m_player.ActionPotion()
+		
+	yield(get_tree().create_timer(1), "timeout")
+	
+	for enemy in m_enemyMoveList:
+		if enemy.m_currentAction == 'attack':
+			enemy.ActionAttack()
+		elif enemy.m_currentAction == 'attackCrit':
+			enemy.ActionAttack()
+		elif enemy.m_currentAction == 'attackAoe':
+			pass
+		elif enemy.m_currentAction == 'armor':
+			enemy.ActionArmor()
+		elif enemy.m_currentAction == 'potion':
+			enemy.ActionPotion()
+
+		yield(get_tree().create_timer(1), "timeout")
+	
+	m_isRolling = false
 	
