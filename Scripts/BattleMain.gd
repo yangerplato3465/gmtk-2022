@@ -138,7 +138,8 @@ func rollDice():
 	DoAction()
 	
 func DoAction():
-	
+	if m_startBattle == false:
+		return 
 	if m_player.m_currentAction == 'attack':
 		m_player.ActionAttack(m_enemyMoveList[0], false)
 	elif m_player.m_currentAction == 'attackCrit':
@@ -184,12 +185,14 @@ func CheckEndCondition():
 
 	
 func Victory():
+	m_startBattle = false
 	$VictoryLabel.visible = true
 	yield(get_tree().create_timer(2), "timeout")
 	Hide()
 	pass
 	
 func Defeat():
+	m_startBattle = false
 	yield(get_tree().create_timer(1), "timeout")
 	$DefeatLabel.visible = true
 	yield(get_tree().create_timer(2), "timeout")

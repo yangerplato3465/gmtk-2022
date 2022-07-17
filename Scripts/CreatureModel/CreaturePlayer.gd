@@ -34,8 +34,10 @@ func ActionAttack(var target, var isCrit):
 	yield($Tween, "tween_completed")
 	
 	if isCrit:
+		AudioLibrary.play("attackCrit")
 		target.GetHurt(m_damage * 2)
 	else:
+		AudioLibrary.play("attack")
 		target.GetHurt(m_damage)
 	
 	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x - 10, 0.3)
@@ -48,6 +50,7 @@ func ActionAoeAttack(var targetList):
 	
 	yield($Tween, "tween_completed")
 	
+	AudioLibrary.play("attackAoe")
 	for target in targetList:
 		target.GetHurt(m_damage)
 	
@@ -57,7 +60,7 @@ func ActionAoeAttack(var targetList):
 
 func ActionArmor():
 	print("[INFO] Creature ActionArmor", $Sprite)
-	
+	AudioLibrary.play("armor")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y - 10, 0.2)
 	$Tween.start()
 	
@@ -65,7 +68,7 @@ func ActionArmor():
 	
 	SetArmor(2)
 	$Armor/Label/up.visible = true
-	
+	AudioLibrary.play("armor")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)
 	$Tween.start()
 	
@@ -74,7 +77,7 @@ func ActionArmor():
 
 func ActionPotion():
 	print("[INFO] Creature ActionPotion")
-	
+	AudioLibrary.play("potion")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y - 10, 0.2)
 	$Tween.start()
 	
@@ -82,7 +85,7 @@ func ActionPotion():
 	
 	GetCure(2)
 	$Health/Label/up.visible = true
-	
+	AudioLibrary.play("potion")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)
 	$Tween.start()
 	

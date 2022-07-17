@@ -62,4 +62,10 @@ func showAnim():
 
 func _on_Tween_tween_all_completed():
 	self.rotation = 0
-	$ActionLabel.text = finalDecision + "!"
+	
+	if finalDecision == 'attackAoe':
+		$ActionLabel.text = 'AOE' + "!"
+	elif finalDecision == 'attackCrit':
+		$ActionLabel.text = 'Crit' + "!"
+	else:
+		$ActionLabel.text = finalDecision + "!"
