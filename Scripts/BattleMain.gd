@@ -122,6 +122,11 @@ func _process(delta):
 func rollDice():
 	for action in m_moveList:
 		action.rollDice()
+	yield(get_tree().create_timer(3), "timeout")
 	
-		
+	m_isRolling = false
+	
+func DoAction():
+	for action in m_moveList:
+		action.DoAction()
 	

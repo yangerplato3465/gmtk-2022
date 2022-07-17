@@ -8,8 +8,9 @@ var m_maxHp = 4
 var m_armor = 0
 var m_damage = 1
 var m_actionDice = []
+var m_currentAction = null
 var m_defaultSprite = load("res://Sprites/char_01.png")
-
+var m_isRolling = false
 # ---------function---------
 
 func init(var _hp, var _armor, var _damage,var _diceList, var _enemyType = ""):
@@ -98,4 +99,18 @@ func refreshUI():
 	pass
 
 func rollDice():
+	pass
+	
+func DoAction():
+	if m_currentAction == 'attack':
+		pass
+	elif m_currentAction == 'attackCrit':
+		pass
+	elif m_currentAction == 'attackAoe':
+		pass
+	elif m_currentAction == 'armor':
+		pass
+	elif m_currentAction == 'potion':
+		pass
+
 	pass

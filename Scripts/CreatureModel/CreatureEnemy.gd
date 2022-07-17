@@ -2,6 +2,8 @@ extends Creature
 
 class_name CreatureEnemy 
 
+
+
 func init(_hp, _armor, _damage, _diceList, _enemyType = "cactus"):
 	.init(_hp, _armor, _damage, _diceList, _enemyType)
 	
@@ -19,5 +21,16 @@ func refreshUI():
 	$Health/Label.text = String(m_hp)
 
 func rollDice():
+	m_isRolling = true
 	$Dice.visible = true
 	$Dice.rollDice()
+	
+func _process(delta):
+	if ($Dice.finalDecision != "" and m_isRolling):
+		m_currentAction = $Dice.finalDecision
+		print("[TEST] Enemy roll:", m_currentAction)
+		m_isRolling = false
+		yield(get_tree().create_timer(1), "timeout")
+		$Dice.finalDecision = ""
+		$Dice.visible = false
+
