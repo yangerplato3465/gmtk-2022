@@ -164,6 +164,5 @@ position = Vector2( 512, 300 )
 scale = Vector2( 3, 3 )
 
 [node name="Door" parent="." instance=ExtResource( 8 )]
-nextScene = "res://Scene/EndLevel.tscn"
 
 [editable path="Player"]

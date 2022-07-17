@@ -18,5 +18,5 @@ func openDoor():
 
 
 func _on_Area2D_body_entered(body):
-	if body.name == "Player":
+	if body.name == "Player" and isOpen:
 		get_tree().change_scene(nextScene)
