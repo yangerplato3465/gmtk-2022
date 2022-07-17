@@ -89,3 +89,5 @@ func ActionPotion():
 	
 func ShowDead():
 	$Sprite.texture = load("res://Sprites/dead.png")
+	yield(get_tree().create_timer(1), "timeout")
+	self.visible = false

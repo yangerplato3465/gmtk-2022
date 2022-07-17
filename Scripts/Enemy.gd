@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 export(String, "cactus", "crab") var enemyType = "cactus"
-export(int, 1, 2, 3) var numberOfEnemy = 1
+export(int) var numberOfEnemy = 1
 
 var tileSize = 16
 var turn = false

@@ -26,6 +26,14 @@ func _ready():
 	SignalManager.connect("battlePlayerInfo", self, "GetPlayerBattleInfo")
 	SignalManager.connect("battleEnemyInfo", self, "GetEnemyBattleInfo")
 
+func _process(delta):
+	if(m_startBattle == false):
+		return
+	
+	if Input.is_action_just_pressed("ui_accept") && !m_isRolling:
+		rollDice()
+		m_isRolling = true
+
 # 收到玩家戰鬥資訊
 func GetPlayerBattleInfo(body):
 	enemyBody = body
@@ -63,7 +71,7 @@ func GetEnemyBattleInfo(var enemyList):
 			m_enemyMoveList.append(newEnemy)
 		else:
 			m_enemyList[enemyIdx].init(hp, armor, damage,diceList, enemyType)
-			m_enemyList[enemyIdx].SetActionDice(diceList)
+			m_enemyList[enemyIdx].visible = true
 			m_enemyNodeList[enemyIdx].visible = true
 			m_enemyMoveList.append(m_enemyList[enemyIdx])
 		
@@ -122,14 +130,6 @@ func MoveCharcater(var object, var startX, var endX):
 	$Tween.start()
 	pass
 
-func _process(delta):
-	if(m_startBattle == false):
-		return
-	
-	if Input.is_action_just_pressed("ui_accept") && !m_isRolling:
-		rollDice()
-		m_isRolling = true
-
 func rollDice():
 	m_player.rollDice()
 	for enemy in m_enemyMoveList:
@@ -152,13 +152,10 @@ func DoAction():
 		m_player.ActionPotion()
 		
 	yield(get_tree().create_timer(1), "timeout")
-	
+	CheckEnemyLive()
+	CheckEndCondition()
 	for enemy in m_enemyMoveList:
-		if enemy.GetHp() <= 0:
-			m_enemyMoveList.erase(enemy)
-			enemy.ShowDead()
-			CheckEndCondition()
-		else:
+		if enemy.GetHp() > 0:
 			if enemy.m_currentAction == 'attack':
 				enemy.ActionAttack(m_player, false)
 			elif enemy.m_currentAction == 'attackCrit':
@@ -173,7 +170,14 @@ func DoAction():
 		yield(get_tree().create_timer(1), "timeout")
 	
 	m_isRolling = false
-	
+
+func CheckEnemyLive():
+	for enemy in m_enemyMoveList:
+		if enemy.GetHp() <= 0:
+			m_enemyMoveList.erase(enemy)
+			enemy.ShowDead()
+			CheckEnemyLive()
+
 func CheckEndCondition():
 	print("[INFO] BattleMain CheckEndCondition", m_enemyMoveList, m_player.GetHp())
 	yield(get_tree().create_timer(1), "timeout")

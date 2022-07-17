@@ -17,15 +17,14 @@ font_data = ExtResource( 3 )
 script = ExtResource( 1 )
 
 [node name="Dice" parent="." instance=ExtResource( 6 )]
-visible = false
-position = Vector2( -20, -3 )
+position = Vector2( -21, 2.98023e-07 )
 scale = Vector2( 0.55, 0.55 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
 [node name="Health" type="Sprite" parent="."]
-position = Vector2( -8, 16 )
+position = Vector2( -7, 13 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 5 )
 
@@ -55,7 +54,7 @@ texture = ExtResource( 8 )
 offset = Vector2( 10, 0 )
 
 [node name="Armor" type="Sprite" parent="."]
-position = Vector2( 8, 16 )
+position = Vector2( 7, 13 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 4 )
 

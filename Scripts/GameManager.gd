@@ -3,7 +3,7 @@ extends Node2D
 var playerHp = 20
 var playerMaxHp = 20
 var playerDamage = 10
-var playerDiceOptions = ['attack', 'attack', 'attack', 'attackCrit', 'attackAoe', 'armor', 'potion']
+var playerDiceOptions = ['attackAoe', 'attackAoe', 'attackAoe']
 var playerArmor = 0
 var playerArmorPower = 2
 var playerPotionPower = 2
