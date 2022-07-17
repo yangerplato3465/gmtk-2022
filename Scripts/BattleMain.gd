@@ -20,7 +20,6 @@ func _ready():
 	SignalManager.connect("battlePlayer", self, "GetPlayerBattleInfo")
 	SignalManager.connect("battleEnemy", self, "GetEnemyBattleInfo")
 	TestData()
-	
 
 func TestData():
 	print("[info] BattleMain TestData")
@@ -53,7 +52,8 @@ func GetPlayerBattleInfo(var playerDict):
 	var diceList = playerDict.diceList
 	# 如果第一次近來 創建一個新的玩家，否則用舊的就好
 	if (m_player == null):
-		m_player = CreaturePlayer.new(hp, diceList)
+		m_player = load("res://Prefab/PlayerInstane.tscn").instance()
+		m_player.init(hp, diceList)
 		m_playerNode.add_child(m_player)
 	else:
 		m_player.SetHp(hp)
@@ -71,7 +71,8 @@ func GetEnemyBattleInfo(var enemyList):
 		var diceList = enemyDict.diceList
 		# 如果第一次近來 創建一個新的敵人，否則用舊的就好
 		if (len(m_enemyList) < enemyIdx+1):
-			var newEnemy = CreatureEnemy.new(hp, diceList)
+			var newEnemy = load("res://Prefab/EnemyInstance.tscn").instance()
+			newEnemy.init(hp, diceList)
 			m_enemyList.append(newEnemy)
 			m_enemyNodeList[enemyIdx].add_child(m_enemyList[enemyIdx])
 			m_enemyNodeList[enemyIdx].visible = true
