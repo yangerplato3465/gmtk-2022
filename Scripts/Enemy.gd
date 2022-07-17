@@ -16,8 +16,8 @@ var right = 0
 var up = 0
 var down = 0
 
-#var diceOptions = ['attack', 'attack', 'attack', 'attack', 'attack_aoe', 'armor', 'potion']
-var diceOptions = ['armor', 'potion']
+var diceOptions = ['attack', 'attack', 'attack', 'attack', 'attack_aoe', 'armor', 'potion']
+
 func _ready():
 	if enemyType == "cactus":
 		$Sprite.texture = load("res://Sprites/enemy_01.png")
