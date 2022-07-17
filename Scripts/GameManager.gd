@@ -8,6 +8,32 @@ var playerArmor = 0
 var playerArmorPower = 2
 var playerPotionPower = 2
 
+func _ready():
+	SignalManager.connect("chooseUpgrade", self, "parseUpgrade")
+
+func parseUpgrade(data):
+	if data == null:
+		return
+	if data.name == 'upgrade_attack_damage':
+		setPlayerDamage(playerDamage + 1)
+	elif data.name == 'upgrade_potion_power':
+		setPlayerPotionPower(playerPotionPower + 1)
+	elif data.name == 'upgrade_armor_power':
+		setPlayerArmorPower(playerArmorPower + 1)
+	elif data.name == 'upgrade_max_hp':
+		setPlayerMaxHp(playerMaxHp + 1)
+	elif data.name == 'add_attack_option':
+		setPlayerDiceOptions("attack")
+	elif data.name == 'add_attackcrit_option':
+		setPlayerDiceOptions("attackCrit")
+	elif data.name == 'add_attackaoe_option':
+		setPlayerDiceOptions("attackAoe")
+	elif data.name == 'add_potion_option':
+		setPlayerDiceOptions("potion")
+	elif data.name == 'add_armor_option':
+		setPlayerDiceOptions("armor")
+
+
 func setPlayerHp(hp):
 	playerHp = min(playerMaxHp, hp)
 

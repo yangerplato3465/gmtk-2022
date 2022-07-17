@@ -5,37 +5,46 @@ var data = [
 		"name": "upgrade_attack_damage",
 		"description": "base attack damage +1",
 		"icon": "attack",
-		"type": "upgrade"
+	},
+	{
+		"name": "upgrade_potion_power",
+		"description": "potion power +1",
+		"icon": "potion",
+	},
+	{
+		"name": "upgrade_armor_power",
+		"description": "armor power +1",
+		"icon": "armor",
+	},
+	{
+		"name": "upgrade_max_hp",
+		"description": "max hp +2",
+		"icon": "heart",
 	},
 	{
 		"name": "add_attack_option",
 		"description": "add a attack option to your dice",
 		"icon": "attack",
-		"type": "add"
 	},
 	{
 		"name": "add_attackcrit_option",
 		"description": "add a crit option to your dice",
 		"icon": "attackCrit",
-		"type": "add"
 	},
 	{
 		"name": "add_attackaoe_option",
 		"description": "add a aoe option to your dice",
 		"icon": "attackAoe",
-		"type": "add"
 	},
 	{
 		"name": "add_potion_option",
 		"description": "add a potion option to your dice",
 		"icon": "potion",
-		"type": "add"
 	},
 	{
 		"name": "add_armor_option",
 		"description": "add a armor option to your dice",
 		"icon": "armor",
-		"type": "add"
 	}
 ]
 
@@ -46,20 +55,16 @@ onready var cursor3 = get_node("CanvasLayer/Options/Option2/Cursor")
 onready var option1 = get_node("CanvasLayer/Options/Option0")
 onready var option2 = get_node("CanvasLayer/Options/Option1")
 onready var option3 = get_node("CanvasLayer/Options/Option2")
-#onready var description1 = get_node("CanvasLayer/Options/Option1/Description")
-#onready var description2 = get_node("CanvasLayer/Options/Option2/Description")
-#onready var description3 = get_node("CanvasLayer/Options/Option3/Description")
-#onready var icon1 = get_node("CanvasLayer/Options/Option1/Icon")
-#onready var icon2 = get_node("CanvasLayer/Options/Option2/Icon")
-#onready var icon3 = get_node("CanvasLayer/Options/Option3/Icon")
 
 var attack = preload("res://Sprites/dice/attack_01.png")
 var attackCrit = preload("res://Sprites/dice/attack_02.png")
 var attackAoe = preload("res://Sprites/dice/attack_03.png")
 var armor = preload("res://Sprites/dice/armor.png")
 var potion = preload("res://Sprites/dice/health_potion.png")
+var heart = preload("res://Sprites/health.png")
+var selectedUpgrades = []
 
-func _ready():
+func init():
 	setCursor()
 	generateRandomOption()
 
@@ -67,12 +72,13 @@ func _process(delta):
 	getInput()
 
 func generateRandomOption():
+	selectedUpgrades = []
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	for i in 3:
 		var index = rng.randi_range(0, data.size() - 1)
-		print(index)
 		setOption(data[index], i)
+		selectedUpgrades.append(data[index])
 
 func setOption(data, index):
 	if data == null:
@@ -106,12 +112,15 @@ func getInput():
 		setCursor()
 			
 	elif Input.is_action_just_pressed("move_left"):
-		AudioLibrary.play("uiSelect")		
+		AudioLibrary.play("uiSelect")
 		cursorCurrent -= 1
 		if cursorCurrent < 0:
 			cursorCurrent = 2
 		setCursor()
-			
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		SignalManager.emit_signal("chooseUpgrade", selectedUpgrades[cursorCurrent])
+
 
 func setCursor():
 	if cursorCurrent == 0:

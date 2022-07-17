@@ -5,16 +5,13 @@ var turn = false
 var canMove = true
 var moveSpeed = 2
 var sizeIncrease = 0.035
-var health = 15
-var damage = 2
-var armor = 0
 
 var left = 0
 var right = 0
 var up = 0
 var down = 0
 
-var diceOptions = ['attack', 'attack', 'attack', 'attackCrit', 'attackAoe', 'armor', 'potion']
+
 
 func _physics_process(delta):
 	movement();
@@ -87,11 +84,5 @@ func popAnim(direction):
 func _on_Area2D_body_entered(body):
 	print(body)
 	if "Enemy" in body.name:
-		var playerInfo = {
-			"hp": health,
-			"armor": armor,
-			"damage": damage,
-			"diceList": diceOptions
-		}
-		SignalManager.emit_signal("battlePlayerInfo", playerInfo)
+		SignalManager.emit_signal("battlePlayerInfo")
 		canMove = false

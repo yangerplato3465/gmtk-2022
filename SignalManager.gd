@@ -9,3 +9,6 @@ signal battlePlayerInfo
 
 # battle actions
 signal diceAction
+
+# upgrade actions
+signal chooseUpgrade
