@@ -24,7 +24,7 @@ func rollDice():
 	m_isRolling = true
 	$Dice.visible = true
 	$Dice.rollDice()
-	
+
 func _process(delta):
 	if ($Dice.finalDecision != "" and m_isRolling):
 		m_currentAction = $Dice.finalDecision
@@ -49,11 +49,7 @@ func ActionAttack(var target, var isCrit):
 		target.GetHurt(m_damage)
 	
 	$Tween.interpolate_property($Sprite, "position:x", $Sprite.position.x, $Sprite.position.x + 10, 0.3)
-	$Tween.start()
-
-func ActionAoeAttack(var targetList):
-	print("[INFO] Creature ActionAoeAttack")
-	
+	$Tween.start()	
 	
 func ActionArmor():
 	print("[INFO] Creature ActionArmor")
@@ -91,5 +87,3 @@ func ActionPotion():
 	
 func ShowDead():
 	$Sprite.texture = load("res://Sprites/dead.png")
-	yield(get_tree().create_timer(0.5), "timeout")
-	queue_free()
