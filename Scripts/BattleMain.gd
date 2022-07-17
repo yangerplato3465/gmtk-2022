@@ -7,10 +7,12 @@ var m_enemyNodeList = []
 var m_enemyList = []
 var m_getPlayerData = false
 var m_getEnemyData = false
+var m_startBattle = false
+var m_moveList = []
 
 var playersTurn = true
 var canRollDice = true
-var isRolling = false
+var m_isRolling = false
 
 func _ready():
 	print("[info] BattleMain _ready")
@@ -23,30 +25,22 @@ func _ready():
 	SignalManager.connect("battlePlayerInfo", self, "GetPlayerBattleInfo")
 	SignalManager.connect("battleEnemyInfo", self, "GetEnemyBattleInfo")
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept") && !isRolling:
-		rollDice()
-		isRolling = true
-
-func rollDice():
-	$Dice.rollDice()
-	
-
 # 收到玩家戰鬥資訊
 func GetPlayerBattleInfo(var playerDict):
 	var hp = playerDict.hp
+	var armor = playerDict.armor
+	var damage = playerDict.damage
 	var diceList = playerDict.diceList
 	# 如果第一次近來 創建一個新的玩家，否則用舊的就好
 	if (m_player == null):
 		m_player = load("res://Prefab/PlayerInstane.tscn").instance()
-		m_player.init(hp, diceList)
+		m_player.init(hp, armor, damage,diceList)
 		m_playerNode.add_child(m_player)
-		$Dice.setOptions(diceList)
 	else:
 		m_player.SetHp(hp)
 		m_player.SetActionDice(diceList)
-		$Dice.setOptions(diceList)
-		
+	
+	m_moveList.append(m_player)
 	m_getPlayerData = true
 	Show()
 	
@@ -55,18 +49,23 @@ func GetEnemyBattleInfo(var enemyList):
 	var enemyIdx = 0
 	for enemyDict in enemyList:
 		var hp = enemyDict.hp
+		var armor = enemyDict.armor
+		var damage = enemyDict.damage
 		var diceList = enemyDict.diceList
+		var enemyType = enemyDict.enemyType
 		# 如果第一次近來 創建一個新的敵人，否則用舊的就好
 		if (len(m_enemyList) < enemyIdx+1):
 			var newEnemy = load("res://Prefab/EnemyInstance.tscn").instance()
-			newEnemy.init(hp, diceList)
+			newEnemy.init(hp, armor, damage,diceList, enemyType)
 			m_enemyList.append(newEnemy)
 			m_enemyNodeList[enemyIdx].add_child(m_enemyList[enemyIdx])
 			m_enemyNodeList[enemyIdx].visible = true
+			m_moveList.append(newEnemy)
 		else:
 			m_enemyList[enemyIdx].SetHp(hp)
 			m_enemyList[enemyIdx].SetActionDice(diceList)
 			m_enemyNodeList[enemyIdx].visible = true
+			m_moveList.append(m_enemyList[enemyIdx])
 		
 		enemyIdx += 1
 		
@@ -80,6 +79,8 @@ func Show():
 	
 	self.visible = true
 	MoveInBattle()
+	yield(get_tree().create_timer(0.5), "timeout")
+	m_startBattle = true
 
 # 離開
 func Hide():
@@ -94,6 +95,8 @@ func Reset():
 	m_playerNode.visible(false)
 	for enemy in m_enemyNodeList:
 		enemy.visible(false)
+	m_startBattle = false
+	m_moveList = []
 
 # 雙方腳色進入
 func MoveInBattle():
@@ -108,3 +111,22 @@ func MoveCharcater(var object, var startX, var endX):
 	$Tween.start()
 	pass
 
+func _process(delta):
+	if(m_startBattle == false):
+		return
+		
+	if Input.is_action_just_pressed("ui_accept") && !m_isRolling:
+		rollDice()
+		m_isRolling = true
+
+func rollDice():
+	for action in m_moveList:
+		action.rollDice()
+	yield(get_tree().create_timer(3), "timeout")
+	
+	m_isRolling = false
+	
+func DoAction():
+	for action in m_moveList:
+		action.DoAction()
+	
