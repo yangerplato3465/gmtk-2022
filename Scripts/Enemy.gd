@@ -1,15 +1,15 @@
 extends KinematicBody2D
 
-export(String, "cactus", "crab") var enemyType = "cactus"
-export(int, 1, 2, 3) var numberOfEnemy = 1
+export(String, "cactus", "crab", "spider", "bat", "rat") var enemyType = "cactus"
+export(int) var numberOfEnemy = 1
+export(int) var health = 5
+export(int) var damage = 1
+export(int) var armor = 0
 
 var tileSize = 16
 var turn = false
 var moveSpeed = 2
 var sizeIncrease = 0.035
-var health = 5
-var damage = 1
-var armor = 0
 
 var left = 0
 var right = 0
@@ -24,6 +24,15 @@ func _ready():
 	if enemyType == "crab":
 		SignalManager.connect("move", self, "getInput")
 		$Sprite.texture = load("res://Sprites/enemy_02.png")
+	if enemyType == "spider":
+		SignalManager.connect("move", self, "getInput")
+		$Sprite.texture = load("res://Sprites/enemy_03.png")
+	if enemyType == "bat":
+		SignalManager.connect("move", self, "getInput")
+		$Sprite.texture = load("res://Sprites/enemy_04.png")
+	if enemyType == "rat":
+		SignalManager.connect("move", self, "getInput")
+		$Sprite.texture = load("res://Sprites/enemy_05.png")
 
 func getInput():
 	var rng = RandomNumberGenerator.new()

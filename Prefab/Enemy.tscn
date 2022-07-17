@@ -4,13 +4,14 @@
 [ext_resource path="res://Scripts/Enemy.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 4, 4 )
 
 [node name="Enemy" type="KinematicBody2D"]
 position = Vector2( 8, 8 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
+numberOfEnemy = 3
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

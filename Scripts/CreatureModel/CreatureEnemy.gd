@@ -11,6 +11,12 @@ func init(_hp, _armor, _damage, _diceList, _enemyType = "cactus"):
 		m_defaultSprite = load("res://Sprites/enemy_01.png")
 	elif (_enemyType == "crab"):
 		m_defaultSprite = load("res://Sprites/enemy_02.png")
+	elif (_enemyType == "spider"):
+		m_defaultSprite = load("res://Sprites/enemy_03.png")
+	elif (_enemyType == "bat"):
+		m_defaultSprite = load("res://Sprites/enemy_04.png")
+	elif (_enemyType == "rat"):
+		m_defaultSprite = load("res://Sprites/enemy_05.png")
 		
 	$Sprite.texture = m_defaultSprite
 	pass
