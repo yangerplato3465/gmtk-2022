@@ -2,6 +2,7 @@ extends Node
 
 signal move
 signal battle
+signal reset
 
 signal setBattleInfo
 signal battleEnemyInfo

@@ -3,13 +3,23 @@ extends Node2D
 var playerHp = 20
 var playerMaxHp = 20
 var playerDamage = 10
-var playerDiceOptions = ['attackAoe', 'attackAoe', 'attackAoe']
+var playerDiceOptions = ['attack', 'attack', 'potion', 'attack']
 var playerArmor = 0
 var playerArmorPower = 2
 var playerPotionPower = 2
 
 func _ready():
 	SignalManager.connect("chooseUpgrade", self, "parseUpgrade")
+	SignalManager.connect("reset", self, "reset")	
+
+func reset():
+	playerHp = 20
+	playerMaxHp = 20
+	playerDamage = 10
+	playerDiceOptions = ['attack', 'attack', 'potion', 'attack']
+	playerArmor = 0
+	playerArmorPower = 2
+	playerPotionPower = 2
 
 func parseUpgrade(data):
 	if data == null:
