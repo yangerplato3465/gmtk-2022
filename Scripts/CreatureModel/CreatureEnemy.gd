@@ -88,3 +88,8 @@ func ActionPotion():
 	
 	yield($Tween, "tween_completed")
 	$Health/Label/up.visible = false
+	
+func ShowDead():
+	$Sprite.texture = load("res://Sprites/dead.png")
+	yield(get_tree().create_timer(0.5), "timeout")
+	queue_free()
