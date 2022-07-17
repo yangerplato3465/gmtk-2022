@@ -2,7 +2,7 @@ extends Sprite
 
 var currentOption = ["attack","attack","attack","attack","attack","attack"]
 var diceAnimCount = 0
-var finalDecision = 0;
+var finalDecision = "";
 
 var attack = preload("res://Sprites/dice/attack_01.png")
 var attackCrit = preload("res://Sprites/dice/attack_02.png")
@@ -11,15 +11,19 @@ var armor = preload("res://Sprites/dice/armor.png")
 var potion = preload("res://Sprites/dice/health_potion.png")
 var isRolling = false
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept") && !isRolling:
-		rollDice()
-		isRolling = true
+#func _process(delta):
+#	if Input.is_action_just_pressed("ui_accept") && !isRolling:
+#		rollDice()
+#		isRolling = true
 
 func setOptions(options):
+	currentOption = []
 	currentOption.append_array(options)
 
 func rollDice():
+	if currentOption.size() <= 0:
+		return
+	self.visible = true
 	$Timer.start();
 
 func _on_Timer_timeout():
@@ -31,7 +35,7 @@ func _on_Timer_timeout():
 	showTexture(index)
 	if diceAnimCount >= 7:
 		$Timer.stop()
-		finalDecision = index
+		finalDecision = currentOption[index]
 		diceAnimCount = 0
 		isRolling = false
 
@@ -60,3 +64,4 @@ func showAnim():
 
 func _on_Tween_tween_all_completed():
 	self.rotation = 0
+	$ActionLabel.text = finalDecision + "!"
