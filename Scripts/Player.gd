@@ -83,7 +83,6 @@ func popAnim(direction):
 
 
 func _on_Area2D_body_entered(body):
-	print(body)
 	if "Enemy" in body.name:
 		SignalManager.emit_signal("battlePlayerInfo", body)
 		canMove = false

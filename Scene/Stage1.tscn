@@ -24,7 +24,6 @@ tile_data = PoolIntArray( -1, 0, 4, -65536, 0, 131074, -65535, 0, 131074, -65534
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 72, 72 )
 enemyType = "crab"
-numberOfEnemy = 3
 
 [node name="Enemy2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 328, 56 )

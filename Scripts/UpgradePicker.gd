@@ -28,12 +28,12 @@ var data = [
 	},
 	{
 		"name": "add_attackcrit_option",
-		"description": "dice crit option +1",
+		"description": "dice crit attack option +1",
 		"icon": "attackCrit",
 	},
 	{
 		"name": "add_attackaoe_option",
-		"description": "dice aoe option to your dice",
+		"description": "dice area attack option +1",
 		"icon": "attackAoe",
 	},
 	{
