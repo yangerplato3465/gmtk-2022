@@ -8,6 +8,8 @@ signal setBattleInfo
 signal battleEnemyInfo
 signal battlePlayerInfo
 
+signal RefreshUI
+
 # battle actions
 signal diceAction
 signal battleWin

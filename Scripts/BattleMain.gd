@@ -89,6 +89,7 @@ func Show():
 	MoveInBattle()
 	yield(get_tree().create_timer(0.5), "timeout")
 	m_startBattle = true
+	SignalManager.emit_signal("RefreshUI")
 
 # 離開
 func Hide(lose = false):
@@ -102,6 +103,7 @@ func Hide(lose = false):
 			enemyBody.death()
 		pass
 	Reset()
+	SignalManager.emit_signal("RefreshUI")
 	pass
 
 # 離開時需要重置的參數

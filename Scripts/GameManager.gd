@@ -6,7 +6,7 @@ var playerDefaultData = {
 	"Damage" : 4,
 	"DiceOptions" : ['attack', 'attack', 'potion', 'attack'],
 	"Armor" : 0,
-	"ArmorPower" : 2,
+	"ArmorPower" : 3,
 	"PotionPower" : 2
 }
 

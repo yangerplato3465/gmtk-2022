@@ -165,6 +165,7 @@ func show():
 func hide():
 	set_process(false)
 	self.visible = false
+	SignalManager.emit_signal("RefreshUI")
 
 
 

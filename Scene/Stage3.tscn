@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Prefab/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefab/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Tilesets/Wall.tres" type="TileSet" id=6]
 [ext_resource path="res://Tilesets/Ground.tres" type="TileSet" id=7]
 [ext_resource path="res://Prefab/Door.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Prefab/UIScene.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -189,6 +190,8 @@ smoothing_enabled = true
 editor_draw_limits = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UIRootNode" parent="CanvasLayer" instance=ExtResource( 9 )]
 
 [node name="UpgradePicker" parent="CanvasLayer" instance=ExtResource( 4 )]
 visible = false
