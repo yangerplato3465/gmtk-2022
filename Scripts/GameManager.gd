@@ -13,9 +13,9 @@ func _ready():
 	SignalManager.connect("reset", self, "reset")	
 
 func reset():
-	playerHp = 20
-	playerMaxHp = 20
-	playerDamage = 10
+	playerHp = 30
+	playerMaxHp = 30
+	playerDamage = 4
 	playerDiceOptions = ['attack', 'attack', 'potion', 'attack']
 	playerArmor = 0
 	playerArmorPower = 2

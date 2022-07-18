@@ -151,14 +151,14 @@ health = 6
 damage = 3
 
 [node name="Enemy2" parent="EnemyContainer" instance=ExtResource( 1 )]
-position = Vector2( 176, 56 )
+position = Vector2( 184, 56 )
 enemyType = "spider"
 numberOfEnemy = 2
 health = 10
 damage = 2
 
 [node name="Enemy" parent="EnemyContainer" instance=ExtResource( 1 )]
-position = Vector2( 256, 72 )
+position = Vector2( 264, 72 )
 enemyType = "spider"
 numberOfEnemy = 2
 health = 10

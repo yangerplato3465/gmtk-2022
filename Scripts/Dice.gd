@@ -41,7 +41,6 @@ func _on_Timer_timeout():
 		isRolling = false
 
 func showTexture(index):
-	print(index)
 	var toShow = currentOption[index]
 	if toShow == 'attack':
 		$item.texture = attack

@@ -16,7 +16,6 @@ var canRollDice = true
 var m_isRolling = false
 
 func _ready():
-	print("[info] BattleMain _ready")
 	m_playerNode = $PlayerNode
 	m_enemyNodeList.append($Enemy/EnemyNode_1)
 	m_enemyNodeList.append($Enemy/EnemyNode_2)
@@ -92,7 +91,6 @@ func Show():
 
 # 離開
 func Hide(lose = false):
-	print("[INFO] BattleMain Hide, lose=", lose)
 	self.visible = false
 	if lose:
 		# 輸掉要做的
@@ -181,7 +179,6 @@ func CheckEnemyLive():
 			CheckEnemyLive()
 
 func CheckEndCondition():
-	print("[INFO] BattleMain CheckEndCondition", m_enemyMoveList, m_player.GetHp())
 	yield(get_tree().create_timer(1), "timeout")
 	if m_player.GetHp() <= 0 :
 		m_player.ShowDead()
