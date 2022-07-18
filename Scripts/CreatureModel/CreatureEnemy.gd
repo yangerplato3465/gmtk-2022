@@ -3,10 +3,10 @@ extends Creature
 class_name CreatureEnemy 
 
 
-
-func init(_hp, _armor, _damage, _diceList, _enemyType = "cactus"):
-	.init(_hp, _armor, _damage, _diceList, _enemyType)
-	
+# 生物資訊初始化 and 取資訊
+func setInfoDict(infoData):
+	print("[Info] Enemy setInfoDict", infoData)
+	var _enemyType = infoData.enemyType
 	if(_enemyType == "cactus"):
 		m_defaultSprite = load("res://Sprites/enemy_01.png")
 	elif (_enemyType == "crab"):
@@ -17,10 +17,9 @@ func init(_hp, _armor, _damage, _diceList, _enemyType = "cactus"):
 		m_defaultSprite = load("res://Sprites/enemy_04.png")
 	elif (_enemyType == "rat"):
 		m_defaultSprite = load("res://Sprites/enemy_05.png")
-		
-	$Sprite.texture = m_defaultSprite
-	pass
 	
+	.setInfoDict(infoData)
+			
 func refreshUI():
 	.refreshUI()
 	$Armor/Label.text = String(m_armor)
@@ -67,7 +66,7 @@ func ActionArmor():
 	
 	yield($Tween, "tween_completed")
 	
-	SetArmor(2)
+	SetArmor(m_armorPower)
 	$Armor/Label/up.visible = true
 	AudioLibrary.play("armor")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)
@@ -84,7 +83,7 @@ func ActionPotion():
 	
 	yield($Tween, "tween_completed")
 	
-	GetCure(2)
+	GetCure(m_potionPower)
 	$Health/Label/up.visible = true
 	AudioLibrary.play("potion")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)

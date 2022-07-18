@@ -5,6 +5,8 @@ export(int) var numberOfEnemy = 1
 export(int) var health = 5
 export(int) var damage = 1
 export(int) var armor = 0
+export(int) var armorPower = 0
+export(int) var potionPower = 0
 
 var tileSize = 16
 var turn = false
@@ -99,10 +101,13 @@ func _on_Area2D_body_entered(body):
 		var enemiesInfo = []
 		for i in numberOfEnemy:
 			var enemyInfo = {
-				"hp": health,
-				"armor": armor,
-				"damage": damage,
-				"diceList": diceOptions,
+				"Hp": health,
+				"MaxHp": health,
+				"Damage": damage,
+				"DiceOptions": diceOptions,
+				"Armor": armor,
+				"ArmorPower": armorPower,
+				"PotionPower" : potionPower,
 				"enemyType": enemyType, 
 			}
 			enemiesInfo.append(enemyInfo)

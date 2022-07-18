@@ -1,5 +1,15 @@
 extends Node2D
 
+var playerDefaultData = {
+	"Hp" : 30,
+	"MaxHp" : 30,
+	"Damage" : 4,
+	"DiceOptions" : ['attack', 'attack', 'potion', 'attack'],
+	"Armor" : 0,
+	"ArmorPower" : 2,
+	"PotionPower" : 2
+}
+
 var playerHp = 30
 var playerMaxHp = 30
 var playerDamage = 4
@@ -13,13 +23,22 @@ func _ready():
 	SignalManager.connect("reset", self, "reset")	
 
 func reset():
-	playerHp = 30
-	playerMaxHp = 30
-	playerDamage = 4
-	playerDiceOptions = ['attack', 'attack', 'potion', 'attack']
-	playerArmor = 0
-	playerArmorPower = 2
-	playerPotionPower = 2
+	playerHp 			= playerDefaultData.Hp
+	playerMaxHp 		= playerDefaultData.MaxHp
+	playerDamage 		= playerDefaultData.Damage
+	playerDiceOptions 	= playerDefaultData.DiceOptions
+	playerArmor 		= playerDefaultData.Armor
+	playerArmorPower 	= playerDefaultData.ArmorPower
+	playerPotionPower 	= playerDefaultData.PotionPower
+
+func setPlayerInfo(playerInfoDict):
+	playerHp 			= playerInfoDict.Hp
+	playerMaxHp 		= playerInfoDict.MaxHp
+	playerDamage 		= playerInfoDict.Damage
+	playerDiceOptions 	= playerInfoDict.DiceOptions
+	playerArmor 		= playerInfoDict.Armor
+	playerArmorPower 	= playerInfoDict.ArmorPower
+	playerPotionPower 	= playerInfoDict.PotionPower
 
 func parseUpgrade(data):
 	if data == null:

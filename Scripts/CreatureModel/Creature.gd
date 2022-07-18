@@ -6,7 +6,9 @@ class_name Creature
 var m_hp = 4
 var m_maxHp = 4
 var m_armor = 0
+var m_armorPower = 1
 var m_damage = 1
+var m_potionPower = 1
 var m_actionDice = []
 var m_currentAction = null
 var m_defaultSprite = load("res://Sprites/char_01.png")
@@ -14,18 +16,34 @@ var m_isRolling = false
 var m_actionMoveDistance = 10
 # ---------function---------
 
-func init(var _hp, var _armor, var _damage,var _diceList, var _enemyType = ""):
-	print("[info] Creature init")
-	SetHp(_hp)
-	SetMaxHp(_hp)
-	SetActionDice(_diceList)
-	SetArmor(_armor)
-	SetDamage(_damage)
-	$Sprite.texture = m_defaultSprite
-
 func _ready():
 	pass
 
+# 生物資訊初始化 and 取資訊
+func setInfoDict(infoData):
+	print("[Info] Creature setInfoDict",infoData)
+	m_hp 			= infoData.Hp
+	m_maxHp 		= infoData.MaxHp
+	m_damage 		= infoData.Damage
+	m_actionDice	= infoData.DiceOptions
+	m_armor 		= infoData.Armor
+	m_armorPower 	= infoData.ArmorPower
+	m_potionPower 	= infoData.PotionPower
+	$Sprite.texture = m_defaultSprite
+	refreshUI()
+
+func getInfoDict():
+	var data = {
+		"Hp" : m_hp,
+		"MaxHp" : m_maxHp,
+		"Damage" : m_damage,
+		"DiceOptions" : m_actionDice,
+		"Armor" : m_armor,
+		"ArmorPower" : m_armorPower,
+		"PotionPower" : m_potionPower
+	}
+
+	return data
 
 # 設定行動骰
 func SetActionDice(var diceList):
@@ -111,7 +129,8 @@ func refreshUI():
 
 func rollDice():
 	pass
-	
+
+
 
 	
 

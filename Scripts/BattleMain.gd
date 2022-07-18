@@ -36,17 +36,23 @@ func _process(delta):
 # 收到玩家戰鬥資訊
 func GetPlayerBattleInfo(body):
 	enemyBody = body
-	var hp = GameManager.playerHp
-	var armor = GameManager.playerArmor
-	var damage = GameManager.playerDamage
-	var diceList = GameManager.playerDiceOptions
+	var playerData = {
+		"Hp" : GameManager.playerHp,
+		"MaxHp" : GameManager.playerMaxHp,
+		"Damage" : GameManager.playerDamage,
+		"DiceOptions" : GameManager.playerDiceOptions,
+		"Armor" : GameManager.playerArmor,
+		"ArmorPower" : GameManager.playerArmorPower,
+		"PotionPower" : GameManager.playerPotionPower
+	}
+
 	# 如果第一次近來 創建一個新的玩家，否則用舊的就好
 	if (m_player == null):
 		m_player = load("res://Prefab/PlayerInstane.tscn").instance()
-		m_player.init(hp, armor, damage,diceList)
+		m_player.setInfoDict(playerData)
 		m_playerNode.add_child(m_player)
 	else:
-		m_player.init(hp, armor, damage,diceList)
+		m_player.setInfoDict(playerData)
 	m_playerNode.visible = true
 	m_getPlayerData = true
 	Show()
@@ -55,21 +61,16 @@ func GetPlayerBattleInfo(body):
 func GetEnemyBattleInfo(var enemyList):
 	var enemyIdx = 0
 	for enemyDict in enemyList:
-		var hp = enemyDict.hp
-		var armor = enemyDict.armor
-		var damage = enemyDict.damage
-		var diceList = enemyDict.diceList
-		var enemyType = enemyDict.enemyType
 		# 如果第一次近來 創建一個新的敵人，否則用舊的就好
 		if (len(m_enemyList) < enemyIdx+1):
 			var newEnemy = load("res://Prefab/EnemyInstance.tscn").instance()
-			newEnemy.init(hp, armor, damage,diceList, enemyType)
+			newEnemy.setInfoDict(enemyDict)
 			m_enemyList.append(newEnemy)
 			m_enemyNodeList[enemyIdx].add_child(m_enemyList[enemyIdx])
 			m_enemyNodeList[enemyIdx].visible = true
 			m_enemyMoveList.append(newEnemy)
 		else:
-			m_enemyList[enemyIdx].init(hp, armor, damage,diceList, enemyType)
+			m_enemyList[enemyIdx].setInfoDict(enemyDict)
 			m_enemyList[enemyIdx].visible = true
 			m_enemyNodeList[enemyIdx].visible = true
 			m_enemyMoveList.append(m_enemyList[enemyIdx])
@@ -112,6 +113,7 @@ func Reset():
 		enemy.visible = false
 	m_startBattle = false
 	m_enemyMoveList = []
+	m_isRolling = false
 	$DefeatLabel.visible = false
 	$VictoryLabel.visible = false
 	$LabelBackGround.visible = false
@@ -155,6 +157,9 @@ func DoAction():
 	CheckEnemyLive()
 	CheckEndCondition()
 	for enemy in m_enemyMoveList:
+		# 如果玩家死了就不要再動作了
+		if m_startBattle == false:
+			return 
 		if enemy.GetHp() > 0:
 			if enemy.m_currentAction == 'attack':
 				enemy.ActionAttack(m_player, false)
@@ -192,6 +197,7 @@ func Victory():
 	$VictoryLabel.visible = true
 	$LabelBackGround.visible = true
 	AudioLibrary.play("Victory")
+	setPlayerInfo()
 	yield(get_tree().create_timer(2), "timeout")
 	Hide()
 	pass
@@ -204,4 +210,17 @@ func Defeat():
 	AudioLibrary.play("Defeat")
 	yield(get_tree().create_timer(2), "timeout")
 	Hide(true)
+	get_tree().change_scene("res://Scene/EndScene.tscn")
 	pass
+
+func setPlayerInfo():
+	GameManager.setPlayerInfo(m_player.getInfoDict())
+	
+	
+	
+	
+	
+	
+	
+	
+	

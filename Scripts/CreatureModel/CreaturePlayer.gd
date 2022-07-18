@@ -66,7 +66,7 @@ func ActionArmor():
 	
 	yield($Tween, "tween_completed")
 	
-	SetArmor(2)
+	SetArmor(m_armorPower)
 	$Armor/Label/up.visible = true
 	AudioLibrary.play("armor")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)
@@ -83,7 +83,7 @@ func ActionPotion():
 	
 	yield($Tween, "tween_completed")
 	
-	GetCure(2)
+	GetCure(m_potionPower)
 	$Health/Label/up.visible = true
 	AudioLibrary.play("potion")
 	$Tween.interpolate_property($Sprite, "position:y", $Sprite.position.y, $Sprite.position.y + 10, 0.3)
