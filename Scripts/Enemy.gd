@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export(String, "cactus", "crab", "spider", "bat", "rat", "boss") var enemyType = "cactus"
+export(int, "green_ghost", "crab", "spider", "bat", "rat", "boss") var enemyType = 0
 export(int) var numberOfEnemy = 1
 export(int) var health = 5
 export(int) var damage = 1
@@ -21,23 +21,24 @@ var down = 0
 var diceOptions = ['attack', 'attack', 'attack', 'attack', 'armor', 'potion', 'attack', 'attack']
 
 func _ready():
-	if enemyType == "cactus":
-		$Sprite.texture = load("res://Sprites/enemy_01.png")
-	if enemyType == "crab":
-		SignalManager.connect("move", self, "getInput")
-		$Sprite.texture = load("res://Sprites/enemy_02.png")
-	if enemyType == "spider":
-		SignalManager.connect("move", self, "getInput")
-		$Sprite.texture = load("res://Sprites/enemy_03.png")
-	if enemyType == "bat":
-		SignalManager.connect("move", self, "getInput")
-		$Sprite.texture = load("res://Sprites/enemy_04.png")
-	if enemyType == "rat":
-		SignalManager.connect("move", self, "getInput")
-		$Sprite.texture = load("res://Sprites/enemy_05.png")
-	if enemyType == "boss":
-		SignalManager.connect("move", self, "getInput")
-		$Sprite.texture = load("res://Sprites/boss.png")
+	match enemyType:
+		EnemyTypes.GREEN_GHOST:
+			$Sprite.texture = load("res://Sprites/enemy_01.png")
+		EnemyTypes.CRAB:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_02.png")
+		EnemyTypes.SPIDER:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_03.png")
+		EnemyTypes.BAT:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_04.png")
+		EnemyTypes.RAT:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_05.png")
+		EnemyTypes.BOSS:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/boss.png")
 
 func getInput():
 	var rng = RandomNumberGenerator.new()

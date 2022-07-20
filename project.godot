@@ -41,6 +41,8 @@ config/icon="res://icon.png"
 SignalManager="*res://SignalManager.gd"
 AudioLibrary="*res://Scene/AudioLibrary.tscn"
 GameManager="*res://Scripts/GameManager.gd"
+UpgradeNames="*res://Scripts/Constants/UpgradeNames.gd"
+EnemyTypes="*res://Scripts/Constants/EnemyTypes.gd"
 
 [display]
 

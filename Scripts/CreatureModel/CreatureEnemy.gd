@@ -7,16 +7,24 @@ class_name CreatureEnemy
 func setInfoDict(infoData):
 	print("[Info] Enemy setInfoDict", infoData)
 	var _enemyType = infoData.enemyType
-	if(_enemyType == "cactus"):
-		m_defaultSprite = load("res://Sprites/enemy_01.png")
-	elif (_enemyType == "crab"):
-		m_defaultSprite = load("res://Sprites/enemy_02.png")
-	elif (_enemyType == "spider"):
-		m_defaultSprite = load("res://Sprites/enemy_03.png")
-	elif (_enemyType == "bat"):
-		m_defaultSprite = load("res://Sprites/enemy_04.png")
-	elif (_enemyType == "rat"):
-		m_defaultSprite = load("res://Sprites/enemy_05.png")
+	match _enemyType:
+		EnemyTypes.GREEN_GHOST:
+			$Sprite.texture = load("res://Sprites/enemy_01.png")
+		EnemyTypes.CRAB:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_02.png")
+		EnemyTypes.SPIDER:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_03.png")
+		EnemyTypes.BAT:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_04.png")
+		EnemyTypes.RAT:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/enemy_05.png")
+		EnemyTypes.BOSS:
+			SignalManager.connect("move", self, "getInput")
+			$Sprite.texture = load("res://Sprites/boss.png")
 	
 	.setInfoDict(infoData)
 			
