@@ -42,18 +42,19 @@ func _on_Timer_timeout():
 
 func showTexture(index):
 	var toShow = currentOption[index]
-	if toShow == 'attack':
-		$item.texture = attack
-	elif toShow == 'attackCrit':
-		$item.texture = attackCrit
-	elif toShow == 'attackAoe':
-		$item.texture = attackAoe
-	elif toShow == 'armor':
-		$item.texture = armor
-	elif toShow == 'potion':
-		$item.texture = potion
-	else:
-		$item.texture = attack
+	match toShow:
+		DiceItemTypes.ATTACK:
+			$item.texture = attack
+		DiceItemTypes.ATTACK_CRIT:
+			$item.texture = attackCrit
+		DiceItemTypes.ATTACK_AOE:
+			$item.texture = attackAoe
+		DiceItemTypes.ARMOR:
+			$item.texture = armor
+		DiceItemTypes.POTION:
+			$item.texture = potion
+		_:
+			$item.texture = attack
 
 func showAnim():
 	var tween = $Tween

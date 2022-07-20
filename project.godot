@@ -43,6 +43,7 @@ AudioLibrary="*res://Scene/AudioLibrary.tscn"
 GameManager="*res://Scripts/GameManager.gd"
 UpgradeNames="*res://Scripts/Constants/UpgradeNames.gd"
 EnemyTypes="*res://Scripts/Constants/EnemyTypes.gd"
+DiceItemTypes="*res://Scripts/Constants/DiceItemTypes.gd"
 
 [display]
 

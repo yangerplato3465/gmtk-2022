@@ -18,10 +18,10 @@ font_data = ExtResource( 2 )
 script = ExtResource( 5 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -243.0
-margin_top = -137.0
-margin_right = 279.0
-margin_bottom = 143.0
+margin_left = -264.0
+margin_top = -136.0
+margin_right = 258.0
+margin_bottom = 144.0
 color = Color( 0, 0, 0, 0.705882 )
 
 [node name="Tween" type="Tween" parent="."]

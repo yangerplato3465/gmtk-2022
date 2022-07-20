@@ -4,7 +4,7 @@ var playerDefaultData = {
 	"Hp" : 30,
 	"MaxHp" : 30,
 	"Damage" : 4,
-	"DiceOptions" : ['attack', 'attack', 'potion', 'attack'],
+	"DiceOptions" : ['attack', 'attack', 'potion', 'attack', 'potion', 'armor'],
 	"Armor" : 0,
 	"ArmorPower" : 3,
 	"PotionPower" : 2
@@ -13,7 +13,7 @@ var playerDefaultData = {
 var playerHp = 30
 var playerMaxHp = 30
 var playerDamage = 4
-var playerDiceOptions = ['attack', 'attack', 'potion', 'attack']
+var playerDiceOptions = ['attack', 'attack', 'potion', 'attack', 'potion', 'armor']
 var playerArmor = 0
 var playerArmorPower = 2
 var playerPotionPower = 2
